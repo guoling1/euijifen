@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .msg {
+            line-height: 24px;
+            margin: 0 15px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="home.html"><img src="static/images/back.gif"></a>
+        <div class="title">提现</div>
+        <a class="right"></a>
+    </div>
+    <div class="page register">
+        <div class="input"><label>提现金额：</label><input type="text" name="fee" id="fee" class="input-txt" placeholder="请填写提现金额"></div>
+        <div class="input"><label>真实姓名：</label><input type="text" name="realname" id="realname" class="input-txt" style="background: #fff" placeholder="填写本人真实姓名"></div>
+        <div class="input"><label>支付宝账号：</label><input type="text" name="alipay" id="alipay" class="input-txt" placeholder="收款支付宝账号" style="background: #fff"></div>
+        <div class="input"><label>确认支付宝账号：</label><input type="text" name="alipay1" id="alipay1" class="input-txt" placeholder="确认收款支付宝账号" style="background: #fff"></div>
+
+
+        <a class="reg-submit" style="margin: 30px 15px 15px;">提现</a>
+        <div class="msg" style="margin-bottom:10px;">提现须知：</div>
+
+        <div class="msg">1、请输入真实姓名，姓名有误将无法到账，姓名一经注册无法更改。</div>
+        <div class="msg">2、提现需人工审核，当日18:00前提现当天到账，18:00后提现第二天到账。</div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+</body>
+</html>
+<script>
+    getData("/ajax/user.ashx","post",{action:"fetch_user_info",userid:userMessage.ID},function (res) {
+        if (res.success) {
+            userMessage=res.user
+            if(userMessage.RealName!=""){
+                $("#realname").val(userMessage.RealName);
+                $("#realname").attr("disabled","disabled");
+            }else {
+                $("#realname").removeAttr("disabled");
+            }
+            if(userMessage.Alipay!=""){
+                $("#alipay").val(userMessage.Alipay);
+                $("#alipay1").val(userMessage.Alipay);
+                $("#alipay").attr("disabled","disabled");
+                $("#alipay1").attr("disabled","disabled");
+            }else {
+                $("#alipay").removeAttr("disabled");
+                $("#alipay1").removeAttr("disabled");
+            }
+        }else {
+            alert(res.msg)
+        }
+    })
+    $(function () {
+
+        $(".reg-submit").click(function () {
+            var alipay = $("#alipay").val();
+            var alipay1 = $("#alipay1").val();
+            var realname = $("#realname").val();
+            var userid = userMessage.ID;
+            var money = $("#fee").val();
+            if (realname.length < 2) {
+                alert("请填写真实姓名");
+                return false;
+            }else if(money == ""){
+                alert("请填写提现金额");
+                return false;
+            }else if(alipay==""||alipay1==""){
+                alert("请填写支付宝账号");
+                return false;
+            }else if (alipay!=alipay1){
+                alert("支付宝账号不一致");
+                return false;
+            }
+            getData("/ajax/user.ashx","post",{action:"usertixian",userid:userid,realname:realname,alipay:alipay,money:money},function (res) {
+                if(res.success){
+                    location.href = 'mingxi.html';
+                }else {
+                    alert(res.msg)
+                }
+            })
+        });
+    });
+</script>

@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .ewm {
+            width: 15em;
+            position: fixed;
+            left: 50%;
+            top: 0;
+            margin-left: -7.5em;
+            margin-top: 5em;
+        }
+
+        .container .ewm-wrap {
+            width: 15em;
+            position: fixed;
+            left: 50%;
+            top: 0;
+            margin-left: -7.5em;
+            margin-top: 5em;
+        }
+
+        .container .ewm1 {
+            width: 100%;
+        }
+
+        .container .close {
+            position: absolute;
+            right: 0;
+            top: -30px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .card .box {
+            position: relative;
+        }
+
+        .card .box .c-wrap {
+            position: absolute;
+            left: 1em;
+            top: 0;
+            height: 100%;
+            width: 15em;
+        }
+
+        .card .box .avatar {
+            width: 2.5em;
+            height: 2.5em;
+            position: absolute;
+            left: 0;
+            top: 1em;
+            border-radius: 3em;
+        }
+
+        .card .box .nickname {
+            position: absolute;
+            width: 10em;
+            left: 3em;
+            top: 1.5em;
+            height: 2em;
+            color: #fff;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .card .box .level {
+            position: absolute;
+            bottom: 1.1em;
+            left: 0;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .card .box .tip {
+            position: absolute;
+            bottom: .3em;
+            left: 0;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .card {
+            padding: 0 15px;
+            background-color: #454551;
+        }
+
+        .card img {
+            width: 100%;
+        }
+
+        .header {
+            background-color: #4b77be;
+        }
+
+        .topCard {
+            position: relative;
+            margin: 10px auto;
+            width: 85%;
+            height: 120px;
+            background: url("static/images/bg.png") no-repeat;
+            background-size: 100% 100%;
+            border-radius: 10px;
+        }
+
+        .topCard img {
+            position: absolute;
+            top: 20px;
+            /* right: 20px; */
+            left: 18px;
+            width: 60px;
+            height: 60px;
+            border-radius: 3em;
+            border: 5px solid #fff;
+        }
+
+        .topCard div {
+            /*padding: 30px 0 0 40px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 30px;*/
+            padding: 25px 0 0 106px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 30px;
+        }
+
+        .container .page .pannel .money {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .ewm1 span.codeNum {
+
+            color: #fb6308;
+            font-size: 19px;
+            font-weight: bold;
+            margin: 7px 0;
+        }
+
+        .ewm1 span {
+            display: block;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .copy {
+            margin: 0 auto 10px;
+            display: block;
+            border: none;
+            height: 30px;
+            padding: 0 15px;
+            border-radius: 15px;
+            background: #f16918;
+            line-height: 30px;
+            color: #fff;
+        }
+
+        .code {
+            margin: 0 auto;
+            display: block;
+            width: 140px;
+            height: 140px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tabbar-panel home">
+        <div class="header">
+            <div class="title">个人中心</div>
+        </div>
+        <div class="page">
+            <div class="topCard" onclick="location.href='profile.html'">
+                <img src="static/images/ico.png" alt="" class="portrait">
+                <div>
+                    <p class="userName">MDZMYP</p>
+                    <p class="levelName">用户</p>
+                </div>
+            </div>
+            <div class="wrap flex" onclick="location.href='mingxi.html'">
+                <div class="pannel flex1" style="text-align: center">
+                    <div class="money" id="Income">0.00</div>
+                    <div class="name">累计盈利</div>
+
+                </div>
+                <div class="pannel flex1"
+                     style="text-align: center;">
+                    <div class="money" id="Money">0.00</div>
+                    <div class="name">我的钱包</div>
+                </div>
+            </div>
+
+            <div class="flex tj-box" style="border-top: 1px solid #ebebeb;" onclick="location.href='order.html'">
+                <div class="tj-item">
+                    <div class="num shenhe">0</div>
+                    <div class="name">审核中</div>
+                </div>
+                <div class="tj-item">
+                    <div class="num success">0</div>
+                    <div class="name">成功单数</div>
+                </div>
+                <div class="tj-item">
+                    <div class="num fail">0</div>
+                    <div class="name">失败单数</div>
+                </div>
+            </div>
+
+            <div class="nav-box">
+                <div class="nav-item flex" onclick="location.href='related.html'">
+                    <img src="static/images/friendList.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <div class="nav-name">好友列表</div>
+                    <div class="nav-ico"></div>
+                </div>
+            </div>
+            <div class="nav-box">
+                <div class="nav-item flex">
+                    <img src="static/images/customer.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <div class="nav-name kfbtn" data-ewm="uploadfiles/20180416/2018041610545861314.png"
+                         data-kefu="15253137135">微信客服
+                    </div>
+                    <div class="nav-ico"></div>
+                </div>
+                <div class="nav-item flex">
+                    <img src="static/images/about.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <div class="nav-name" onclick="location.href='about.html'">关于我们</div>
+                    <div class="nav-ico"></div>
+                </div>
+                <div class="nav-item flex">
+                    <img src="static/images/log2.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <div class="nav-name" onclick="location.href='retrieve.html?from=home'">修改密码</div>
+                    <div class="nav-ico"></div>
+                </div>
+                <div class="nav-item flex">
+                    <img src="static/images/log2.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <div class="nav-name" id="quit">退出登录</div>
+                    <div class="nav-ico"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tabbar">
+        <a class="item" href="index.html">
+            <span><img src="static/images/img_caidan_1.png" class="tabbar-icon"></span>
+            <p>积分兑换</p>
+        </a>
+        <a class="item" href="agent.html">
+            <span><img src="static/images/img_caidan_3.png" class="tabbar-icon"></span>
+            <p>合伙人</p>
+        </a>
+        <a class="item" href="share.html">
+            <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
+            <p>推广</p>
+        </a>
+        <a class="item" href="invite.html">
+            <span><img src="static/images/img_caidan_5.png" class="tabbar-icon"></span>
+            <p>APP下载</p>
+        </a>
+        <a class="item" href="javascript:;">
+            <span><img src="static/images/img_caidan_41.png" class="tabbar-icon"></span>
+            <p style="color: #4b77be">个人中心</p>
+        </a>
+    </div>
+</div>
+
+<style>
+    .weui-mask {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .weui-dialog {
+        position: fixed;
+        z-index: 5000;
+        width: 80%;
+        max-width: 300px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #FFFFFF;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .weui-dialog__hd {
+        padding: 1.3em 1.6em 0.5em;
+    }
+
+    .weui-dialog__title {
+        font-weight: 400;
+        font-size: 18px;
+    }
+
+    .weui-dialog__bd {
+        padding: 0 1.6em 0.8em;
+        min-height: 40px;
+        font-size: 15px;
+        line-height: 1.3;
+        word-wrap: break-word;
+        word-break: break-all;
+        color: #808080;
+    }
+
+    .weui-dialog__bd:first-child {
+        padding: 2.7em 20px 1.7em;
+        color: #353535;
+    }
+
+    .weui-dialog__ft {
+        position: relative;
+        line-height: 48px;
+        font-size: 18px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .weui-dialog__ft:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 1px;
+        border-top: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+
+    .weui-dialog__btn {
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        color: #09BB07;
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        position: relative;
+    }
+
+    .weui-dialog__btn:active {
+        background-color: #EEEEEE;
+    }
+
+    .weui-dialog__btn:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        border-left: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+    }
+
+    .weui-dialog__btn:first-child:after {
+        display: none;
+    }
+
+    .weui-dialog__btn_default {
+        color: #353535;
+    }
+
+    .weui-dialog__btn_primary {
+        color: #09BB07;
+    }
+
+</style>
+
+<div class="js_dialog" id="iosDialog" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__bd">
+            <div class="ewm1" style="background: #eabb75;padding-bottom: 22px;padding-top: 32px;position: relative">
+
+                <img src="" alt="" class="code">
+                <span class="codeNum"></span>
+                <button class="copy" data-clipboard-text="">复制微信号</button>
+                <span>客服工作时间：</span>
+                <span>周一至周六：8:00-11:30、13:00-17:00</span>
+                <span>非工作时间请耐心等待</span>
+            </div>
+            <div class="kefu1"></div>
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">知道了</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+</body>
+</html>
+<script src="js/public.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script>
+    // clibosrd插件实现点击复制
+    new ClipboardJS('.copy');
+    judgingLogon();
+    //获取数据
+    getData("/ajax/user.ashx", "post", {
+        action: "fetch_user_info",
+        userid: userMessage.ID
+    }, function (res) {
+        if (res.success) {
+            localStorage.setItem("userMsg", JSON.stringify(res.user));
+            $("#Income").html(res.user.Income);
+            $("#Money").html(res.user.Money);
+            $(".shenhe").html(res.order.approve);
+            $(".success").html(res.order.succ);
+            $(".fail").html(res.order.fail);
+            $(".portrait").attr("src", res.user.Avatar);
+            if (res.user.Nick == null) {
+                $(".userName").html(res.user.UserName)
+            } else {
+                $(".userName").html(res.user.Nick);
+            }
+
+            $(".levelName").html(res.user.LevelName);
+        } else {
+            alert(res.msg);
+        }
+    });
+    $(function () {
+        $(".kfbtn").click(function () {
+            getData("/ajax/config.ashx", "post", {action: "fetch_config_info"}, function (res) {
+                if (res.success) {
+                    $(".ewm1 .code").attr("src", ip + res.info.WeixinCustomerImage);
+                    $(".codeNum").html("客服微信号：" + res.info.WeixinCustomerCode);
+                    $(".copy").attr("data-clipboard-text", res.info.WeixinCustomerCode)
+                } else {
+                    alert(res.msg);
+                }
+            });
+            /*var ewm = $(this).data("ewm");
+            var kefu = $(this).data("kefu");
+            $(".ewm1").html("<img src='" + ewm + "'>");
+            $(".kefu1").html("客服微信号：" + kefu);*/
+            $(".js_dialog").show();
+        });
+        $("#quit").click(function () {
+            localStorage.clear();
+            location.href = "login.html"
+        })
+        $(".weui-dialog__btn").click(function () {
+            $(".js_dialog").hide();
+        });
+
+        $(".wxkefu").click(function () {
+            $(".ewm-wrap").show();
+            event.stopPropagation();
+        })
+        $(".close").click(function () {
+            $(".ewm-wrap").hide();
+        });
+    })
+</script>

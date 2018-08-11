@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .yq-hd .fx1 {
+            flex: 1
+        }
+
+        .yq-hd .fx2 {
+            flex: 2
+        }
+
+        .yq-hd .fx3 {
+            flex: 3
+        }
+
+        .rd-list .fx1 {
+            flex: 1
+        }
+
+        .rd-list .fx2 {
+            flex: 2
+        }
+
+        .rd-list .fx3 {
+            flex: 3
+        }
+
+        .yq-hd div {
+            color: #000;
+        }
+
+        .yq-hd {
+            border-bottom: 1px solid #e5e5e5;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .rd-list .row {
+            border-bottom: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="home.html"><img src="static/images/back.gif"></a>
+        <div class="title">我的好友</div>
+        <a class="right"></a>
+    </div>
+    <div class="page users order">
+        <div class="flex order-tab" style="border: none">
+            <div class="tb-item active" data-status="1">
+                <div class="name">直推好友</div>
+            </div>
+            <div class="tb-item" data-status="2">
+                <div class="name">间推好友</div>
+            </div>
+        </div>
+        <div class="yq-hd">
+            <div class="sep fx1">手机号</div>
+            <div class="sep fx3">等级</div>
+            <!--<div class="sep fx2">成交</div>-->
+            <!--<div class="sep fx1">推荐奖</div>-->
+        </div>
+        <div class="rd-wrap">
+            <div class="rd-list">
+                <!--<div class="row">
+                    <div class="fx1">1</div>
+                    <div class="fx3">LLCRPA</div>
+                    <div class="fx2">186*4411</div>
+                    <div class="fx1">否</div>
+                </div>
+                <div class="row">
+                    <div class="fx1">2</div>
+                    <div class="fx3">LZMAIK</div>
+                    <div class="fx2">151*6627</div>
+                    <div class="fx1">否</div>
+                </div>
+                <a class="user-more">查看更多</a>-->
+            </div>
+            <a class="user-more">查看更多</a>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    $(function () {
+        var page = 0;
+        var loading = false;
+        var end = false;
+        var status = 1;
+
+
+        function next_page() {
+            page++;
+            loading = true;
+            getData("/ajax/user.ashx","post",{action:'userrelated',state:status,page:page,userid:userMessage.ID},function (res) {
+                if(res.success){
+                    if (res.info.table.length==0) {
+                        end = true;
+                        $('.user-more').html('');
+                    } else {
+                        if (res.info.table.length<10){
+                            end = true;
+                            $('.user-more').html('到底了');
+                        }
+                        var tableData = res.info.table;
+                        var oFram = document.createDocumentFragment();
+                        for(var i=0;i<tableData.length;i++){
+                            var oRow = document.createElement("div");
+                            oRow.className = "row";
+                            var oFx1 = document.createElement("div");
+                            oFx1.className = "fx1";
+                            oFx1.innerHTML = tableData[i].UserName;
+                            oRow.appendChild(oFx1);
+                            var oFx3 = document.createElement("div");
+                            oFx3.className = "fx3";
+                            oFx3.innerHTML = tableData[i].Name;
+                            oRow.appendChild(oFx3);
+                            /*var oFx2 = document.createElement("div");
+                            oFx2.className = "fx2";
+                            oFx2.innerHTML = tableData[i].Money;
+                            oRow.appendChild(oFx2);
+                            var oFx4 = document.createElement("div");
+                            oFx4.className = "fx1";
+                            oFx4.innerHTML = tableData[i].Income;
+                            oRow.appendChild(oFx4);*/
+                            oFram.appendChild(oRow)
+                        }
+                        $(".rd-list").append(oFram);
+                    }
+                    loading = false;
+                }else {
+                    alert(res.msg)
+                }
+            })
+        }
+
+        $(".user-more").click(function () {
+            if (!loading && !end) {
+                next_page();
+            }
+        });
+        next_page();
+
+        $(".tb-item").click(function () {
+            if (!$(this).hasClass("active")) {
+                page = 0;
+                end = 0;
+                $('.user-more').html('查看更多');
+                status = $(this).data('status');
+                $('.rd-list').html('')
+                $(".tb-item").removeClass("active")
+                $(this).addClass("active");
+                next_page();
+            }
+        })
+        next_page();
+    })
+</script>

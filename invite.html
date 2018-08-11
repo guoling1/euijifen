@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet"/>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page {
+            padding-top: 0;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .btn1, .btn2, .btn3 {
+            width: 60%;
+            margin: 0 auto;
+            display: block;
+            margin-bottom: 1em;
+        }
+
+        .top, .body {
+            position: relative;
+        }
+
+        .body {
+            background: url(img/page_02.png) no-repeat center top;
+            background-size: 100% 100%;
+            height: 100%;
+        }
+
+        .android, .ios {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #6f6d6d;
+            opacity: 0.9;
+        }
+
+        .mask .container {
+            background: #fff;
+            width: 80%;
+            height: 60%;
+            margin: 60px auto;
+        }
+
+        .mask .container img {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .mask .container img.close {
+            width: 30px;
+            position: absolute;
+            top: 45px;
+            right: 10%;
+        }
+
+        .mask p {
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="top">
+        <img src='static/images/load.png' style="width:100%;display:block;margin:0 auto;">
+    </div>
+    <div class="body">
+        <img src="img/btn11.png" class="btn1">
+        <img src="img/btn2.png" class="btn2" onclick="open_android()">
+        <img src="img/btn3.png" class="btn3" onclick="open_ios()">
+    </div>
+    <img src="img/android.png" class="android" onclick="">
+    <img src="img/ios.png" class="ios">
+</div>
+<div class="mask">
+    <div class="container">
+        <img src="img/gzh.jpg" alt="" id="code">
+        <img src="static/images/close.png" alt="" class="close">
+        <p>长按或保存图片识别二维码</p>
+    </div>
+
+</div>
+<div class="tabbar">
+    <a class="item" href="index.html">
+        <span><img src="static/images/img_caidan_1.png" class="tabbar-icon"></span>
+        <p>积分兑换</p>
+    </a>
+    <a class="item" href="agent.html">
+        <span><img src="static/images/img_caidan_3.png" class="tabbar-icon"></span>
+        <p>合伙人</p>
+    </a>
+    <!----><a class="item" href="share.html">
+    <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
+    <p>推广</p>
+</a>
+    <a class="item" href="javascript:;">
+        <span><img src="static/images/img_caidan_51.png" class="tabbar-icon"></span>
+        <p style="color: #4b77be">APP下载</p>
+    </a>
+    <a class="item" href="home.html">
+        <span><img src="static/images/img_caidan_4.png" class="tabbar-icon"></span>
+        <p>个人中心</p>
+    </a>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    getData("/ajax/config.ashx", "post", {action: "fetch_config_info"}, function (res) {
+        if (res.success) {
+            $("#code").attr("src", ip + res.info.WeixinImage)
+        } else {
+            alert(res.msg)
+        }
+    })
+    $(".mask").hide()
+    $(".btn1").on("click", function () {
+        $(".mask").show()
+    })
+    $(".close").on("click", function () {
+        $(".mask").hide()
+    })
+    $(function () {
+        $(".android,.ios").click(function () {
+            $(this).hide();
+        });
+    })
+
+    var is_weixin = 1;
+
+    function open_android() {
+        location.href = 'https://www.pgyer.com/PZ5a';
+        /*//if(is_weixin==1){
+        //$(".android").show();
+        //}else{
+        //location.href='https://www.pgyer.com/jfhxd';
+        location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.weifu.hxd';
+        //}*/
+    }
+
+    function open_ios() {
+        location.href = 'https://www.pgyer.com/PZ5a';
+        /*if (is_weixin == 1) {
+            $(".ios").show();
+        } else {
+            location.href = 'https://www.pgyer.com/uJJt';
+        }*/
+    }
+</script>
+</html>

@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/idangerous.swiper2.7.6.css">
+    <style>
+        .swiper-slide img{
+            width: 95%;
+            margin: 0 10px;
+            border-radius: 20px;
+        }
+        .gowithdraw {
+            border-width: 0;
+            border-radius: 5px;
+            background-color: #f27935;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px 0;
+            float: right;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .right {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .header a:link, .header a:visited, .header a:hover, .header a:active {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .code {
+            position: absolute;
+            top: 34.4%;
+            left: 32.5%;
+            width: 35%;
+            height: 20.7%;
+            background: #fff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tabbar-panel agent" style="width: 100%;height: 90%;margin: 0 auto;">
+        <!--<div class="header">
+            <a class="back"></a><div class="title">分享</div><a class="right"></a>
+        </div>-->
+        <div class="swiper-container" id="swiper" style="height: 100%;margin-top: 15px">
+            <div class="swiper-wrapper">
+                <!--<div class="swiper-slide">
+                    <img src="static/images/1.jpg" alt="">
+                </div>
+                <div class="swiper-slide" >
+                    <img src="static/images/1.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="static/images/1.jpg" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="static/images/1.jpg" alt="">
+                </div>-->
+            </div>
+        </div>
+        <p style="text-align: center;color: #8a8a8a;font-size: 15px;">长按保存图片后发给他人完成推广</p>
+        <!--<div class="page share" style="padding-top:0;position: relative">
+            &lt;!&ndash;<img src="public/qr_path/109/wa109090.jpg" style="width:100%;display:block;margin:0 auto;">&ndash;&gt;
+            <img src="static/images/tuiguang4.png" style="width:100%;display:block;margin:0 auto;">
+            <img src="" alt="" class="code">
+            &lt;!&ndash;<button class="gowithdraw">发送专属海报</button>&ndash;&gt;
+        </div>-->
+    </div>
+    <div class="tabbar">
+        <a class="item" href="index.html">
+            <span><img src="static/images/img_caidan_1.png" class="tabbar-icon"></span>
+            <p>积分兑换</p>
+        </a>
+        <a class="item" href="agent.html">
+            <span><img src="static/images/img_caidan_3.png" class="tabbar-icon"></span>
+            <p>合伙人</p>
+        </a>
+        <!----><a class="item" href="javascript:;">
+        <span><img src="static/images/img_caidan_21.png" class="tabbar-icon"></span>
+        <p style="color: #4b77be">推广</p>
+    </a>
+        <a class="item" href="invite.html">
+            <span><img src="static/images/img_caidan_5.png" class="tabbar-icon"></span>
+            <p>APP下载</p>
+        </a>
+        <a class="item" href="home.html">
+            <span><img src="static/images/img_caidan_4.png" class="tabbar-icon"></span>
+            <p>个人中心</p>
+        </a>
+    </div>
+</div>
+
+<style>
+    .weui-mask {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .weui-dialog {
+        position: fixed;
+        z-index: 5000;
+        width: 80%;
+        max-width: 300px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #FFFFFF;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .weui-dialog__hd {
+        padding: 1.3em 1.6em 0.5em;
+    }
+
+    .weui-dialog__title {
+        font-weight: 400;
+        font-size: 18px;
+    }
+
+    .weui-dialog__bd {
+        padding: 0 1.6em 0.8em;
+        min-height: 40px;
+        font-size: 15px;
+        line-height: 1.3;
+        word-wrap: break-word;
+        word-break: break-all;
+        color: #808080;
+    }
+
+    .weui-dialog__bd:first-child {
+        padding: 2.7em 20px 1.7em;
+        color: #353535;
+    }
+
+    .weui-dialog__ft {
+        position: relative;
+        line-height: 48px;
+        font-size: 18px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .weui-dialog__ft:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 1px;
+        border-top: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+
+    .weui-dialog__btn {
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        color: #09BB07;
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        position: relative;
+    }
+
+    .weui-dialog__btn:active {
+        background-color: #EEEEEE;
+    }
+
+    .weui-dialog__btn:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        border-left: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+    }
+
+    .weui-dialog__btn:first-child:after {
+        display: none;
+    }
+
+    .weui-dialog__btn_default {
+        color: #353535;
+    }
+
+    .weui-dialog__btn_primary {
+        color: #09BB07;
+    }
+</style>
+
+<div class="js_dialog" id="iosDialog">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__bd" style="text-align:left;">
+            用户可邀请好友，但无隶属关系<br/>
+            1.不赚取好友的兑换差价<br/>
+            2.日后升级，好友清零<br/>
+            有资源者建议先升级合伙人再推广
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">已知晓</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="js/idangerous.swiper2.7.6.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var data = userMessage.QrcodeImg.split(",");
+    var oFram = document.createDocumentFragment();
+    for(var i= 0;i<data.length;i++){
+        var slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        var img = document.createElement("img");
+        img.src = ip+data[i];
+        slide.appendChild(img);
+        oFram.appendChild(slide);
+    }
+    $(".swiper-wrapper").append(oFram);
+    var mySwiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        slidesPerView: 1.2,
+        centeredSlides: true
+    })
+
+    $(function () {
+        $(".weui-dialog__ft").click(function () {
+            $("#iosDialog").hide();
+        })
+    });
+    var LevelName = ""
+    getData("/ajax/user.ashx", "post", {
+        action: "fetch_user_info",
+        userid: userMessage.ID
+    }, function (res) {
+        if (res.success) {
+            LevelName = res.user.LevelName
+            if(LevelName=="合伙人"){
+                $("#iosDialog").hide();
+            }else if(LevelName == "黄金会员"){
+                $(".weui-dialog__bd").html("黄金会员权益<br/>\n" +
+                    "            1.积分兑换:可按照黄金会员价格兑换积分<br/>\n" +
+                    "            2.差价分润:可赚取旗下所有用户的兑换差价<br/>\n" +
+                    "            2.黄金会员升级合伙人后,可带走旗下所属用户和平级会员(平级会员先升级合伙人者除外)<br/>\n" +
+                    "            有资源者建议先升级合伙人再推广")
+            }else if(LevelName == "会员"){
+                $(".weui-dialog__bd").html("会员可邀请好友，但无隶属关系<br/>\n" +
+                    "            1.不赚取好友的兑换差价<br/>\n" +
+                    "            2.日后升级，好友清零<br/>\n" +
+                    "            有资源者建议先升级黄金会员再推广")
+            }
+        } else {
+            alert(res.msg);
+        }
+    })
+
+    wx.config({
+        debug: false,
+        appId: 'wx4e64204c632db8d8',
+        timestamp: 1525488275,
+        nonceStr: 'zimuQQEQmhgelY7f6',
+        signature: '3321b53eace6a8737e8419563cd824b05c9ad722',
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'checkJsApi',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'closeWindow',
+            'hideOptionMenu',
+            'hideAllNonBaseMenuItem',
+            'menuItem:profile'
+        ]
+    });
+    wx.ready(function () {
+        wx.onMenuShareTimeline({
+            title: '易兑积分', // 分享标题
+            link: 'http://integral.yueyues.com/usershare.html?id=109090', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://integral.yueyues.com/img/getheadimg.jpg', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+
+        wx.onMenuShareAppMessage({
+            title: '易兑积分', // 分享标题
+            desc: '易兑积分', // 分享描述
+            link: 'http://integral.yueyues.com/usershare.html?id=109090', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://integral.yueyues.com/img/getheadimg.jpg', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+</script>

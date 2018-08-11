@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .gowithdraw {
+            border-width: 0;
+            border-radius: 5px;
+            background-color: #f27935;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            padding: 2px 10px;
+            margin-left: 15px;
+        }
+        ul li{
+            height: 44px;
+            border-bottom: 1px solid #d3d3d6;
+            background: #fff;
+            font-size: 14px;
+            padding: 8px 15px 0;;
+        }
+        li .description{
+            display: inline-block;
+            font-size: 12px;
+        }
+        li .price{
+            float: right;
+            font-size: 16px;
+            margin-top: -7px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="home.html"><img src="static/images/back.gif"></a>
+        <div class="title">资金明细</div>
+        <a class="right"></a>
+    </div>
+    <div class="page page-mx vflex">
+        <div style="padding:3px 15px 3px 0;"><span style="line-height:36px;padding-left:1em;color:red" id="price">可提现金额:0.00</span>
+            <button class="gowithdraw" onclick="location.href='tixian.html'">提现</button>
+            <button class="gowithdraw" onclick="location.href='tixianList.html'">提现记录</button>
+        </div>
+        <div class="tab" style="margin: 0">
+            <div class="item active" data-status="-1">
+                <p>全部</p>
+            </div>
+            <div class="item" data-status="1">
+                <p>收入</p>
+            </div>
+            <div class="item" data-status="2">
+                <p>支出</p>
+            </div>
+        </div>
+        <div class="mx-list flex1">
+            <ul class="mx-wrap">
+                <!--<li>
+                    <span class="time">2018-05-02T18:47:42</span>
+                    <p class="description">13738548577升级黄金会员的返佣奖(2000.00)</p>
+                    <span class="price">90.00</span>
+                </li>
+                <li>
+                    <p class="time">2018-05-02T18:47:42</p>
+                    <p class="description">13738548577升级黄金会员的返佣奖(2000.00)</p>
+                    <span class="price">90.00</span>
+                </li>
+                <li>
+                    <span class="time">2018-05-02T18:47:42</span>
+                    <p class="description">13738548577升级黄金会员的返佣奖(2000.00)</p>
+                    <span class="price">90.00</span>
+                </li>-->
+            </ul>
+            <a class="mx-more">查看更多</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    getData("/ajax/user.ashx","post",{action:"fetch_user_info",userid:userMessage.ID},function (res) {
+        if (res.success) {
+                    $("#price").html("可提现金额: "+res.user.Money)
+            }else {
+            alert(res.msg)
+        }
+    })
+    $(function () {
+        var page = 0;
+        var loading = false;
+        var end = false;
+        var status = -1;
+        var price;
+
+        function next_page() {
+            page++;
+            loading = true;
+            // $(".gowithdraw").hide()
+            getData("/ajax/user.ashx","post",{action:"usermoney",state:status,page:page,userid:userMessage.ID},function (res) {
+                if (res.success) {
+                    if (res.info.table.length==0) {
+                        end = true;
+                        $('.mx-more').html('到底了');
+                    } else {
+                        if (res.info.table.length<10){
+                            end = true;
+                            $('.mx-more').html('到底了');
+                        }
+                        /*if(page==1&&status==-1){
+                            price = res.info.table[0].Money;
+                            $("#price").html("可提现金额: "+price)
+                            if(price !== 0){
+                                $(".gowithdraw").show()
+                            }
+                        }*/
+                        var dataList = res.info.table;
+                        var oFram = document.createDocumentFragment();
+                        for(var i=0;i<dataList.length;i++){
+                            var oLi = document.createElement("li");
+                            var oTime = document.createElement("p");
+                            oTime.innerHTML = dataList[i].CreateDate;
+                            oLi.appendChild(oTime);
+                            var oDes = document.createElement("p");
+                            oDes.className = "description";
+                            oDes.innerHTML = dataList[i].Description;
+                            oLi.appendChild(oDes);
+                            var oPrice = document.createElement("span");
+                            oPrice.className = "price";
+                            oPrice.innerHTML = dataList[i].ChangeMoney;
+                            oLi.appendChild(oPrice);
+                            oFram.appendChild(oLi)
+                        }
+                        $(".mx-wrap").append(oFram);
+                    }
+                    loading = false;
+                }
+            })
+        }
+
+        $(".mx-more").click(function () {
+            if (!loading && !end) {
+                next_page();
+            }
+        });
+        $(".item").click(function () {
+            if (!$(this).hasClass("active")) {
+                page = 0;
+                end = 0;
+                $('.mx-more').html('查看更多');
+                status = $(this).data('status');
+                $('.mx-wrap').html('');
+                $(".item").removeClass("active")
+                $(this).addClass("active");
+                next_page();
+            }
+        })
+        next_page();
+        console.log(price)
+
+    })
+</script>

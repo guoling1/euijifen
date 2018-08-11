@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet"/>
+    <style>
+        .icon {
+            padding-top: 90px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .icon img {
+            margin: 0 auto;
+            width: 80px;
+            height: 80px;
+        }
+
+        div input {
+            border: none;
+            height: 50px;
+            width: 80%;
+            font-size: 16px;
+        }
+
+        .phone, .password {
+            margin: 0 15px;
+            border-bottom: 1px solid #e5e5e5;
+            height: 50px;
+        }
+
+        div img {
+            vertical-align: middle;
+            margin: 0 5px;
+            width: 26px;
+        }
+
+        div#sub {
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 5px;
+            width: 90%;
+            background: #4b77be;
+            color: #f0f0f0;
+            font-size: 16px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #B5BEBE;
+        }
+
+        .register {
+            position: fixed;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            color: #B4B4B4;
+        }
+
+        .register a {
+            color: #B4B4B4;
+        }
+
+        .loginVC {
+            display: block;
+            text-align: right;
+            margin: 10px 5% 0 0;
+            color: #4b77be;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="icon">
+    <img src="static/images/ico.png">
+</div>
+<div>
+    <div class="phone">
+        <img src="static/images/reg1.png" alt="" style="margin: 0 2px 0 8px;">
+        <input type="number" name="phone" id="phone" placeholder="请输入手机号">
+    </div>
+    <div class="password">
+        <img src="static/images/log2.png" alt="">
+        <input type="password" name="password" id="password" placeholder="请输入密码">
+    </div>
+    <div type="submit" value="登 录" id="sub">登 录</div>
+</div>
+<a href="loginVC.html" class="loginVC">验证码登录</a>
+<div class="register">
+    <a href="retrieve.html?from=login">忘记密码</a> 丨
+    <a href="register.html">立即注册</a>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var oHeight = $(document).height();
+    $(window).resize(function(){
+
+        if($(document).height() < oHeight){
+
+            $(".register").css("position","static");
+        }else{
+
+            $(".register").css("position","absolute");
+        }
+    });
+    /*$('#phone').bind("focus",function(){
+        $(".register").css({"position":"static","bottom":0});
+    }).bind("blur",function(){
+        $(".register").css({"position":"fixed","bottom":'20px'});
+    });
+    $('#password').bind("focus",function(){
+        $(".register").css({"position":"static","bottom":0});
+    }).bind("blur",function(){
+        $(".register").css({"position":"fixed","bottom":'20px'});
+    });*/
+    $("#sub").on("click", function (e) {
+        e.preventDefault();
+
+        var phone = $("input[name='phone']")[0].value;
+        var password = $("input[name='password']")[0].value;
+        if (!phoneReg.test(phone)) {
+            alert("请输入正确的手机号")
+        } else if (password == "") {
+            alert("请输入密码")
+        } else {
+            var data = {
+                action: "userlogin",
+                username: phone,
+                password: password,
+            };
+            getData('/ajax/user.ashx', "post", data, function (res) {
+                if (res.success) {
+                    localStorage.setItem('user', JSON.stringify(res.info));
+                    location.href = "index.html"
+                } else {
+                    alert(res.msg);
+                }
+            });
+        }
+    })
+</script>
+</html>

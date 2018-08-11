@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .register .mx {
+            padding-bottom: 0;
+            margin: 0 15px;
+            font-size: 12px;
+        }
+
+        .register .mx > div {
+            padding-bottom: 0;
+            line-height: 18px;
+            padding: 4px 0;
+            font-size: 12px;
+            color: #4a4a4a;
+        }
+
+        .register .mx .wenti {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="agent.html"><img src="static/images/back.gif"></a>
+        <div class="title">支付</div>
+        <a class="right"></a>
+    </div>
+    <div class="page register">
+        <div class="mx" style="margin-top: 15px">
+            <div class='wenti'>
+                如何成为黄金会员？
+            </div>
+            <div class='huida'>
+                1.会员充值2888元，升级为黄金会员(注册180天内,自己兑换5000万积分或直推团队兑换1.5亿积分,全额退2888元)
+            </div>
+            <div class='huida'>
+                2.会员直接邀请25个会员/黄金,联系客服免费升级黄金会员
+            </div>
+            <div class='wenti'>
+                黄金会员有什么权益？
+            </div>
+            <div class='huida'>
+                知识专享:可查看活动-玩赚积分和卡友百科版块
+            </div>
+            <div class='huida'>
+                赠送以下权益：
+            </div>
+            <div class='huida'>
+                1.积分收益:自己可按照黄金会员价兑换积分
+            </div>
+            <div class='huida'>
+                2.差价分润:可赚取旗下所有用户/会员的兑换差价
+            </div>
+            <div class='huida'>
+                3.推荐奖:旗下所有用户/会员升级黄金会员,您可得2000元推荐奖(免费升级的可得800元)
+            </div>
+            <div class='huida'>4.平级分润:旗下会员升级为黄金之后,赚取其平级分润(其差价收益的10%)</div>
+        </div>
+        <a class="reg-submit" id="extend">立即推广</a>
+        <a class="reg-submit" id="upgrade">立即升级</a>
+
+    </div>
+</div>
+
+
+<style>
+    .weui-mask {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .weui-dialog {
+        position: fixed;
+        z-index: 5000;
+        width: 80%;
+        max-width: 300px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #FFFFFF;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .weui-dialog__hd {
+        padding: 1.3em 1.6em 0.5em;
+    }
+
+    .weui-dialog__title {
+        font-weight: 400;
+        font-size: 18px;
+    }
+
+    .weui-dialog__bd {
+        padding: 0 1.6em 0.8em;
+        min-height: 40px;
+        font-size: 15px;
+        line-height: 1.3;
+        word-wrap: break-word;
+        word-break: break-all;
+        color: #808080;
+    }
+
+    .weui-dialog__bd:first-child {
+        padding: 2.7em 20px 1.7em;
+        color: #353535;
+    }
+
+    .weui-dialog__ft {
+        position: relative;
+        line-height: 48px;
+        font-size: 18px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .weui-dialog__ft:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 1px;
+        border-top: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+
+    .weui-dialog__btn {
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        color: #09BB07;
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        position: relative;
+    }
+
+    .weui-dialog__btn:active {
+        background-color: #EEEEEE;
+    }
+
+    .weui-dialog__btn:after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        border-left: 1px solid #D5D5D6;
+        color: #D5D5D6;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+    }
+
+    .weui-dialog__btn:first-child:after {
+        display: none;
+    }
+
+    .weui-dialog__btn_default {
+        color: #353535;
+    }
+
+    .weui-dialog__btn_primary {
+        color: #09BB07;
+    }
+</style>
+
+<div class="js_dialog" id="iosDialog" style="display: none;">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__bd" style="text-align:left;">确认后将直接支付宝付款</div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确认支付</a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/0.2.4/alipayjsapi.inc.min.js"></script>
+<script src="js/public.js"></script>
+</body>
+</html>
+<script>
+    judgingLogon()
+    var data = JSON.parse(localStorage.getItem("upgrade"+getParam().upgrade));
+    if(getParam().upgrade==2){
+
+        $("#extend").hide()
+    }else {
+        // $("#upgrade").hide()
+    }
+    $('.mx').html(data)
+    // 唤起支付宝支付
+    /*let onAlipayJSBridge = function (jsonData) {
+        //jsonData.channelNo
+        AlipayJSBridge.call("tradePay", {tradeNO: jsonData.tradeNO},
+            function (result) {
+                if (result.resultCode == 9000 || result.resultCode == 8000) {
+                    window.location.href = '/membership/success/' + jsonData.orderId+'?mid='+pageData.mid+'&source='+pageData.source;
+                }else {
+                    alert("失败")
+                }
+            });
+    };*/
+    $(".weui-dialog__btn").click(function () {
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            alert("请在浏览器打开支付")
+        } else {
+            getData("/ajax/alipay.ashx","post",{action:"createpayform",userid:userMessage.ID},function (res) {
+                if(res.success){
+                    $("body").append(res.data)
+                }else {
+                    alert(res.msg)
+                }
+            })
+        }
+    })
+    //微信支付
+    /*wx.config({
+        debug: false,
+        appId: 'wx4e64204c632db8d8',
+        timestamp: 1525488163,
+        nonceStr: 'zQE2y7hCEZVFC1IZi',
+        signature: '910815855470f46e998a23297c6e6760ae9f97f8',
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'checkJsApi',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'closeWindow',
+            'hideOptionMenu',
+            'hideAllNonBaseMenuItem',
+            'menuItem:profile'
+        ]
+    });
+
+    wx.ready(function () {
+        wx.hideAllNonBaseMenuItem();
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            //onBridgeReady();
+        }
+    });
+
+    function onBridgeReady() {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId": 'wx4e64204c632db8d8',
+                "timeStamp": '1525488163',
+                "nonceStr": 'zS2rK8a2EbPONV4fJ',
+                "package": 'prepay_id=wx0510424332377972bf75fec80155024732',
+                "signType": "MD5",
+                "paySign": '08228F24085A012BA482C524C78C1DAC',
+            },
+            function (res) {
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    window.location.href = 'agent.html';
+                } else {
+                    //alert(res.err_msg);
+                }
+            }
+        );
+    }*/
+
+    $(function () {
+        $("#upgrade").click(function () {
+            $("#iosDialog").show();
+        })
+        $("#extend").click(function () {
+            location.href = "/euijifen/share.html"
+        })
+        /*$(".weui-dialog__btn").click(function () {
+            onBridgeReady();
+        })*/
+    })
+</script>

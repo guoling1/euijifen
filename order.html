@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .order .uptime {
+            font-size: 14px;
+            font-weight: normal;
+            float: right;
+            padding-right: 1em;
+            color: #979797
+        }
+
+        .order .order-tab .tb-item {
+            font-size: 14px;
+        }
+
+        .order .order-bd {
+            border-bottom: 1px solid #efefef;
+        }
+
+        .audit_remarks {
+            padding: 5px 15px;
+            color: #f00;
+            font-size: 12px;
+            border-bottom: 1px solid #efefef;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="order">
+        <div class="header"><a class="back" href="home.html"><img src="static/images/back.gif"></a>
+            <div class="title">订单</div>
+            <a class="right"></a></div>
+        <div class="page">
+            <div class="flex order-tab">
+                <div class="tb-item active" data-status="-1">
+                    <div class="name">全部</div>
+                </div>
+                <div class="tb-item" data-status="0">
+                    <div class="name">未审核</div>
+                </div>
+                <div class="tb-item" data-status="1">
+                    <div class="name">审核中</div>
+                </div>
+                <div class="tb-item" data-status="2">
+                    <div class="name">审核成功</div>
+                </div>
+                <div class="tb-item" data-status="3">
+                    <div class="name">审核失败</div>
+                </div>
+                <!--<div class="tb-item">
+                    <div class="name">纠纷中</div>
+                </div>-->
+            </div>
+
+            <div class="order-lislt">
+                <div class="order-wrap">
+                    <div class="table">
+                        <!--<div class="table-hd flex">
+                            <div class="hd-item">订单号</div>
+                            <div class="hd-item">创建时间</div>
+                            <div class="hd-item" style="width: 57px;flex: none;">产品类型</div>
+
+                            <div id="remark" class="hd-item" style="width: 57px;flex: none;">审核状态</div>
+                        </div>-->
+                        <div class="table-hd flex">
+                            <div class="hd-item">订单号</div>
+                            <div class="hd-item">创建时间</div>
+                            <div class="hd-item" style="width: 57px;flex: none;">产品类型</div>
+                            <div class="hd-item" style="width: 70px;flex: none;display: block;">审核状态</div>
+                        </div>
+                        <!--<div class="table-row">
+                            <div class="table-col" style="    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;">201805151632172331544</div>
+                            <div class="table-col" style="width: 57px;flex: none;">1万</div>
+                            <div class="table-col">2018-04-21T12:00:23</div>
+                            <div class="table-col" style="width: 70px;flex: none;">16.00</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="table-col">2018051401</div>
+                            <div class="table-col" style="width: 57px;flex: none;">1万</div>
+                            <div class="table-col">2018-04-21T12:00:23</div>
+                            <div class="table-col" style="width: 70px;flex: none;">16.00</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="table-col">2018051401</div>
+                            <div class="table-col" style="width: 57px;flex: none;">1万</div>
+                            <div class="table-col">2018-04-21T12:00:23</div>
+                            <div class="table-col" style="width: 70px;flex: none;">16.00</div>
+                        </div>-->
+                    </div>
+                </div>
+                <a class="order-more">查看更多</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+
+    $(function () {
+        var page = 0;
+        var loading = false;
+        var end = false;
+        var status = -1;
+        var userid = userMessage.ID;
+
+        function next_page() {
+            page++;
+            loading = true;
+
+            getData("/ajax/order.ashx","post",{action:"fetch_user_order",state:status,page:page,userid:userid},function (res) {
+                if(res.success){
+                    if (res.info.table.length==0) {
+                        end = true;
+                        $('.order-more').html('到底了');
+                    } else {
+                        if (res.info.table.length<10){
+                            end = true;
+                            $('.order-more').html('到底了');
+                        }
+                        var tableData = res.info.table;
+                        var oFram = document.createDocumentFragment();
+                        for(var i=0;i<tableData.length;i++){
+                            var oRow = document.createElement("div");
+                            oRow.className = "table-row";
+                            var oCol1 = document.createElement("div");
+                            oCol1.className = "table-col";
+                            oCol1.style.overflow = "hidden";
+                            oCol1.style.textOverflow = "ellipsis";
+                            oCol1.style.whiteSpace = "nowrap";
+                            oCol1.innerHTML = tableData[i].OrderNo;
+                            oRow.appendChild(oCol1);
+                            var oCol3 = document.createElement("div");
+                            oCol3.className = "table-col";
+                            oCol3.innerHTML = tableData[i].CreateDate;
+                            oRow.appendChild(oCol3);
+                            var oCol2 = document.createElement("div");
+                            oCol2.className = "table-col";
+                            oCol2.style.width = "57px";
+                            oCol2.style.flex = "none";
+                            oCol2.innerHTML = tableData[i].ProductName;
+                            oRow.appendChild(oCol2);
+                            if(status==3){
+
+                                    var oCol4 = document.createElement("div");
+                                oCol4.className = "table-col";
+                                oCol4.style.width = "70px";
+                                oCol4.style.flex = "none";
+                                oCol4.innerHTML = tableData[i].Remark;
+                                // document.getElementById('remark').style.display='block'
+                                oRow.appendChild(oCol4);
+                            }
+                            if(status==-1){
+
+                                var oCol4 = document.createElement("div");
+                                oCol4.className = "table-col";
+                                oCol4.style.width = "70px";
+                                oCol4.style.flex = "none";
+                                oCol4.innerHTML = tableData[i].State;
+                                // document.getElementById('remark').style.display='block'
+                                oRow.appendChild(oCol4);
+                            }
+
+                            oFram.appendChild(oRow)
+                        }
+                        $(".order-wrap .table").append(oFram);
+                    }
+                    loading = false;
+                }else {
+                    alert(res.msg)
+                }
+            })
+            /*$.post("/order_more.html", {page: page, status: status}, function (response, status) {
+                if (status == "success") {
+                    if ($.trim(response) == "") {
+                        end = true;
+                        $('.order-more').html('到底了');
+                    } else {
+                        $(".order-wrap").append(response);
+                    }
+                    loading = false;
+                }
+            });*/
+        }
+
+        $(".order-more").click(function () {
+            if (!loading && !end) {
+                next_page();
+            }
+        });
+        $(".tb-item").click(function () {
+            if (!$(this).hasClass("active")) {
+                page = 0;
+                end = 0;
+                $('.order-more').html('查看更多');
+                status = $(this).data('status');
+                $('.order-wrap .table').html('<div class="table-hd flex">\n' +
+                    '                            <div class="hd-item">订单号</div>\n' +
+                    '                            <div class="hd-item">创建时间</div>\n' +
+                    '                            <div class="hd-item" style="width: 57px;flex: none;">产品类型</div>\n' +
+                    '                            \n' +
+                    '                            <div class="hd-item" style="width: 70px;flex: none;display: none;">失败原因</div>\n' +
+                    '                        </div>');
+                if(status==3){
+                    $('.order-wrap .table ').html('<div class="table-hd flex">\n' +
+                        '                            <div class="hd-item">订单号</div>\n' +
+                        '                            <div class="hd-item">创建时间</div>\n' +
+                        '                            <div class="hd-item" style="width: 57px;flex: none;">产品类型</div>\n' +
+                        '                            \n' +
+                        '                            <div class="hd-item" style="width: 70px;flex: none;display: block;">失败原因</div>\n' +
+                        '                        </div>');
+                }
+                if(status==-1){
+                    $('.order-wrap .table ').html('<div class="table-hd flex">\n' +
+                        '                            <div class="hd-item">订单号</div>\n' +
+                        '                            <div class="hd-item">创建时间</div>\n' +
+                        '                            <div class="hd-item" style="width: 57px;flex: none;">产品类型</div>\n' +
+                        '                            \n' +
+                        '                            <div class="hd-item" style="width: 70px;flex: none;display: block;">审核状态</div>\n' +
+                        '                        </div>');
+                }
+                $(".tb-item").removeClass("active")
+                $(this).addClass("active");
+                next_page();
+            }
+        })
+        next_page();
+    })
+</script>

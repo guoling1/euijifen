@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet"/>
+    <style>
+        .sel-bank {
+            padding: 2px 5px;
+            height: 26px;
+            margin-top: 2px;
+        }
+
+        .index .sel {
+            margin: 5px 0 5px;
+        }
+
+        .index .cs {
+            padding: 5px 0;
+        }
+
+        .sel-label {
+            line-height: 24px;
+        }
+
+        .index .money {
+            color: red;
+        }
+
+        #in_tips2 {
+            color: red;
+        }
+
+        .header {
+            background-color: #454551;
+        }
+
+        .app {
+            position: fixed;
+            right: 10px;
+            bottom: 60px;
+            width: 60px;
+            z-index: 9999
+        }
+
+        .page {
+            position: relative;
+            padding-top: 0;
+        }
+
+        ul, ol {
+            padding: 0;
+        }
+
+        .banner {
+            position: relative;
+            overflow: auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .banner li {
+            list-style: none;
+        }
+
+        .banner ul li {
+            float: left;
+            width: 100%;
+            height: 100%;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bank_select {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            /*height: 100%;*/
+        }
+
+        .bank_classify {
+            border-bottom: 4px solid #e5e5e5;
+            width: 49.8%;
+            height: 56px;
+        }
+
+        .bank_select img {
+            float: left;
+            padding: 0px 5px 15px 9px
+            width: 32px;
+            height: 32px;
+        }
+
+        .bank_classify .main {
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .bank_classify .container {
+            margin: 10px 0;
+        }
+
+        .bank_select span {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .bank_select .min {
+            font-weight: normal;
+            font-size: 12px;
+            color: #a2a0a0;
+        }
+
+        .main img.biaoshi {
+            position: absolute;
+            top: -4px;
+            right: 6px;
+            height: 18px;
+        }
+
+        .active {
+            background: #f0eff5;
+            box-shadow: 1px 5px 3px #adacac;
+            height: 50px;
+            border: none;
+        }
+
+        .noclick {
+            background: #e5e5e5;
+        }
+
+        .query {
+            background: #ebebeb;
+            padding: 5px 15px;
+            min-height: 42px;
+        }
+
+        .query p.title {
+            float: left;
+            font-size: 16px;
+            color: #f70707;
+            font-weight: bold;
+            width: 44px;
+        }
+
+        .lowest {
+            height: 30px;
+            line-height: 30px;
+            background: #ebebeb;
+            padding: 0 15px;
+        }
+
+        .lowest span {
+            color: #f70707;
+        }
+
+        button {
+            height: 35px;
+            line-height: 35px;
+            width: 80%;
+            margin: 15px auto;
+            display: block;
+            background: #4b77be;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .bank_select img.icon{
+            width: 40px;
+            height: 40px;
+            padding: 0 8px 0 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="font-size: 14px">
+    <div class="tabbar-panel index">
+        <div class="page">
+            <div class="banner">
+                <ul id="banner" style="height: 140px">
+                    <!--<li><img src="static/images/pic1.png"/></li>-->
+                    <!--<li><img src="uploadfiles/20180506/a1.png"/></li>-->
+
+                </ul>
+            </div>
+            <div class="bank" style="padding: 0;">
+                <div style="margin-top:3px;">
+                    <div style="padding: 0 15px;"><img src="static/images/img_jifen_yinhang.png" class="sel"></div>
+                    <!--<div class="sel-bank flex flex1" style="margin-left:10px;">
+                        <div class="flex1" style="margin-top:2px;">
+                            <select class="select" id="select_bank">
+                            </select>
+                        </div>
+                    </div>-->
+                    <!--银行列表-->
+                    <div class="bank_select" id="bankList">
+                        <!--<div class="bank_classify active">
+                            <div class="main">
+                                <img src="img/bank.png" alt="">
+                                <div class="container">
+                                    <span>中国银行</span>
+                                    <span class="min">最高37.2元/万分</span>
+                                </div>
+                                <img src="static/images/miaojie.png" alt="" class="biaoshi">
+                            </div>
+                        </div>-->
+                    </div>
+                    <!--<div class="query">
+                        <p class="title">积分查询</p>
+                        <p id="queryFun">使用银行预留手机号编辑短信\"积分\" 发送至95595,查询积分</p>
+                    </div>-->
+                </div>
+                <!--<div class="cs" id="chaxun">请选择银行</div>-->
+                <!--<div class="calc">
+                    <div class="flex">
+                        <div class="input">
+                            <div class="coin"><img src="static/images/img_jifen_jifen.png" class="img-coin"><input type="number" id="coin" placeholder="请输入兑换积分"></div>
+                            <div class="money"><img src="static/images/img_jifen_renminbi.png" class="img-money"><span id="fee">约0.00</span>元</div>
+                        </div>
+                        <div class="btn"><div class="calc-btn">计算</div></div>
+                    </div>
+                </div>
+                <div class="lowest">最低起兑积分  <span></span></div>
+                <button>立即兑换</button>
+
+                <div class="tip"><div><img src="static/images/img_jifen_dunpai.png" class="img-tip"><span id="in_tips"></span></div></div>
+                <div class="tip"><div><img src="static/images/img_jifen_dunpai.png" class="img-tip"><span id="in_tips2"></span></div></div>-->
+            </div>
+            <!--<div class="button" id="xiangqing">马上去兑换</div>
+            <div><img src="img/pic.png" style="width:100%;"></div>
+            <img src="img/app.png" class="app" onclick="location.href='invite.html'">-->
+        </div>
+    </div>
+    <div class="tabbar">
+        <a class="item" href="javascript:;">
+            <span><img src="static/images/img_caidan_11.png" class="tabbar-icon"></span>
+            <p style="color: #4b77be">积分兑换</p>
+        </a>
+        <a class="item" href="agent.html">
+            <span><img src="static/images/img_caidan_3.png" class="tabbar-icon"></span>
+            <p>合伙人</p>
+        </a>
+        <!----><a class="item" href="share.html">
+        <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
+        <p>推广</p>
+    </a>
+        <a class="item" href="invite.html">
+            <span><img src="static/images/img_caidan_5.png" class="tabbar-icon"></span>
+            <p>APP下载</p>
+        </a>
+        <a class="item" href="home.html">
+            <span><img src="static/images/img_caidan_4.png" class="tabbar-icon"></span>
+            <p>个人中心</p>
+        </a>
+    </div>
+
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="img/unslider.min.js"></script>
+</body>
+</html>
+<script src="js/public.js"></script>
+<script>
+    $(function () {
+        judgingLogon();
+        var aImg = {
+            "秒结": 'static/images/miaojie.png',
+            "T+0": "static/images/T0.png",
+            "T+1": "static/images/T1.png",
+            "T+2": "static/images/T2.png",
+            "T+3": "static/images/T3.png",
+            "暂停结算": "static/images/zanting.png"
+        };
+        var userId = userMessage.ID;
+        //获取轮播图
+        getData("/ajax/banner.ashx", "post", {action: "fetch_all_banner"}, function (res) {
+            if (res.success) {
+                var bannerList = res.info;
+                var oFragment = document.createDocumentFragment();
+                for (var i = 0; i < bannerList.length; i++) {
+                    var oLi = document.createElement('li');
+                    var oImg = document.createElement("img");
+                    oImg.src = ip + bannerList[i].Image;
+                    oLi.appendChild(oImg);
+                    oFragment.appendChild(oLi);
+                }
+                $("#banner").append(oFragment)
+                $(function () {
+                    $('.banner').unslider()
+                });
+            } else {
+                alert(res.msg)
+            }
+
+        })
+        // 获取所有银行
+        var bankList = [];
+        getData("/ajax/bank.ashx", "post", {action: "fetch_all_bank"}, function (res) {
+            if (res.success) {
+                bankList = res.info;
+                var oFragment = document.createDocumentFragment();
+                for (var i = 0; i < bankList.length; i++) {
+                    var oDiv = document.createElement('div');
+                    oDiv.className = "bank_classify";
+                    var oMain = document.createElement("div");
+                    oMain.className = "main";
+                    var oImg = document.createElement('img');
+                    oImg.src = ip + bankList[i].Logo;
+                    oImg.className = "icon"
+                    oMain.appendChild(oImg);
+                    var oContainer = document.createElement('div');
+                    oContainer.className = 'container';
+                    oMain.appendChild(oContainer);
+                    var oSpan = document.createElement('span');
+                    oSpan.innerHTML = bankList[i].Name;
+                    oContainer.appendChild(oSpan);
+                    var oMin = document.createElement('span');
+                    oMin.className = 'min';
+                    // oMin.innerHTML = bankList[i].detail;
+                    oContainer.appendChild(oMin);
+                    if (bankList[i].Settlement !== '') {
+                        var oBiao = document.createElement('img');
+                        oBiao.src = aImg[bankList[i].Settlement];
+                        oBiao.className = "biaoshi";
+                        oMain.appendChild(oBiao);
+                    }
+
+                    oDiv.appendChild(oMain);
+                    oFragment.appendChild(oDiv)
+                }
+                document.getElementById("bankList").appendChild(oFragment);
+                $("#queryFun").html(bankList[0].PhoneMsg);
+                $(".bank_classify").each(function (i, ele) {
+                    $(this).on('click', function () {
+                        if(bankList[i].Settlement=="暂停结算"){
+                            var state = 1;
+                        }else {
+                            var state = 0;
+                        }
+                        location.href = "detail.html?id=" + bankList[i].ID + "&user=" + userId+"&state="+state;
+                    })
+                })
+            } else {
+                alert(res.msg)
+            }
+        });
+    })
+
+</script>

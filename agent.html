@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/idangerous.swiper2.7.6.css">
+    <style>
+        .swiper-wrapper {
+            margin-top: 5px;
+        }
+
+        .swiper-container, .swiper-wrapper {
+            width: 100%;
+            height: 150px;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide .card {
+            position: relative;
+            /*margin: 0 5px;*/
+            width: 100%;
+            height: 100%;
+            background: aliceblue;
+            background: url("static/images/bg.png") no-repeat;
+            background-size: 95% 95%;
+        }
+
+        .swiper-slide .card .avatar {
+            position: absolute;
+            top: 21px;
+            left: 23px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+
+        .swiper-slide .card .nickname {
+            position: absolute;
+            left: 6.5em;
+            top: 2em;
+            height: 2em;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .swiper-slide .card .level {
+            position: absolute;
+            bottom: 3.3em;
+            left: 5.8em;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .swiper-slide .card .tip {
+            position: absolute;
+            bottom: 3.3em;
+            left: 8.7em;
+            font-size: 12px;
+            color: #fff;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="tabbar-panel agent" style="background: #f0eff5">
+        <div class="header">
+            <div class="title">合伙人</div>
+        </div>
+        <div class="page">
+            <div class="swiper-container" id="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <img src="static/images/ico.png" alt="" class="avatar">
+                            <div class="nickname">MDZMYP</div>
+                            <div class="level">会员</div>
+                            <div class="tip">您的当前级别</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <div class="card">
+                                <img src="static/images/ico.png" alt="" class="avatar">
+                                <div class="nickname">MDZMYP</div>
+                                <div class="level">黄金会员</div>
+                                <div class="tip">您的当前级别</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <div class="card">
+                                <img src="static/images/ico.png" alt="" class="avatar">
+                                <div class="nickname">MDZMYP</div>
+                                <div class="level">合伙人</div>
+                                <div class="tip">您的当前级别</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="top">
+                <div class="slide-wrap">
+                    <div class="card">
+                        <div class="box">
+                            <img src="img/aa1.png" style="display:block;">
+                            <div class="wrap">
+                                <img class="avatar" src="http://integral.yueyues.com/img/logo.png">
+                                <div class="nickname">MDZMYP</div>
+                                <div class="level">用户</div>
+                                <div class="tip">您的当前级别</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="box">
+                            <img src="img/aa3.png" style="display:block;">
+                            <div class="wrap">
+                                <img class="avatar" src="http://integral.yueyues.com/img/logo.png">
+                                <div class="nickname">MDZMYP</div>
+                                <div class="level">会员</div>
+                                <div class="tip">充值188元即成为会员</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="box">
+                            <img src="img/aa4.png" style="display:block;">
+                            <div class="wrap">
+                                <img class="avatar" src="http://integral.yueyues.com/img/logo.png">
+                                <div class="nickname">MDZMYP</div>
+                                <div class="level">黄金会员</div>
+                                <div class="tip">充值2888元即成为黄金会员</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="upgrade">
+                <div class="item item1" onclick="location.href='pay.html?upgrade=1'">升级黄金会员</div>
+                <div class="item item2" onclick="location.href='pay.html?upgrade=2'">升级合伙人</div>
+            </div>
+
+            <!--<div class="mx hide1">
+                如何成为用户？
+                注册即成为用户(免费)
+
+                <div class='wenti'>
+                    如何成为用户？
+                </div>
+                <div class='huida'>
+                    注册即成为用户(免费)
+                </div>
+                <div class='wenti'>
+                    用户有什么权益？
+                </div>
+                <div class='huida'>
+                    1.可按照用户价格兑换银行积分
+                </div>
+                <div class='huida'>
+                    2.邀请1位好友兑换成功,可赚5元红包(每个好友限1次红包,累计红包限10个)
+                </div>
+                <div class='huida'>3.好友之间没有隶属关系,未来升级会员/黄金会员,好友不能带走</div>
+            </div>
+            <div class="mx hide1">
+                <div class='wenti'>
+                    如何成为会员？
+                </div>
+                <div class='huida'>
+                    1.用户充值188元,升级成为会员(终生)
+                </div>
+                <div class='huida'>
+                    2.注册180天内,自己兑换500万积分或直推团队兑换1500万积分,全额退188元
+                </div>
+                <div class='wenti'>
+                    会员有什么权益？
+                </div>
+                <div class='huida'>
+                    知识专享:可查看活动-玩赚积分版块
+                </div>
+                <div class='huida'>
+                    赠送以下权益：
+                </div>
+                <div class='huida'>
+                    1.积分收益:自己可按照会员价兑换积分
+                </div>
+                <div class='huida'>
+                    2.差价分润:可赚取旗下所有用户的兑换差价
+                </div>
+                <div class='huida'>
+                    3.推荐奖:旗下所有用户升级会员，您可得120元推荐奖
+                </div>
+                <div class='huida'>4.会员升级黄金后,可带走旗下所属用户和平级会员(平级会员先升级黄金者除外)</div>
+            </div>
+            <div class="mx hide1">
+                <div class='wenti'>
+                    如何成为黄金会员？
+                </div>
+                <div class='huida'>
+                    1.会员充值2888元，升级为黄金会员(注册180天内,自己兑换5000万积分或直推团队兑换1.5亿积分,全额退2888元)
+                </div>
+                <div class='huida'>
+                    2.会员直接邀请25个会员/黄金,联系客服免费升级黄金会员
+                </div>
+                <div class='wenti'>
+                    黄金会员有什么权益？
+                </div>
+                <div class='huida'>
+                    知识专享:可查看活动-玩赚积分和卡友百科版块
+                </div>
+                <div class='huida'>
+                    赠送以下权益：
+                </div>
+                <div class='huida'>
+                    1.积分收益:自己可按照黄金会员价兑换积分
+                </div>
+                <div class='huida'>
+                    2.差价分润:可赚取旗下所有用户/会员的兑换差价
+                </div>
+                <div class='huida'>
+                    3.推荐奖:旗下所有用户/会员升级黄金会员,您可得2000元推荐奖(免费升级的可得800元)
+                </div>
+                <div class='huida'>4.平级分润:旗下会员升级为黄金之后,赚取其平级分润(其差价收益的10%)</div>
+            </div>-->
+            <style>
+                .agent .hd-item {
+                    padding-left: 0;
+                    padding-right: 0;
+                    border-top: 1px solid #e5e5e5;
+                }
+            </style>
+            <!--<div class="table">
+                <div class="table-label">积分兑换价格（单位：元/万）</div>
+                <div class="table-hd flex">
+                    <div class="hd-item" style="width:40px;flex:none;">银行</div>
+                    <div class="hd-item">用户</div>
+                    <div class="hd-item">会员</div>
+                    <div class="hd-item">黄金会员</div>
+                    <div class="hd-item">起兑</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">建行</div>
+                    <div class="table-col">13.00</div>
+                    <div class="table-col">14.00</div>
+                    <div class="table-col">16.00</div>
+                    <div class="table-col">54000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">招行</div>
+                    <div class="table-col">220.00</div>
+                    <div class="table-col">240.00</div>
+                    <div class="table-col">260.00</div>
+                    <div class="table-col">799</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">工行</div>
+                    <div class="table-col">9.00</div>
+                    <div class="table-col">10.00</div>
+                    <div class="table-col">12.00</div>
+                    <div class="table-col">10000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">平安</div>
+                    <div class="table-col">16.40</div>
+                    <div class="table-col">16.80</div>
+                    <div class="table-col">17.60</div>
+                    <div class="table-col">50000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">浦发</div>
+                    <div class="table-col">4.70</div>
+                    <div class="table-col">5.00</div>
+                    <div class="table-col">5.40</div>
+                    <div class="table-col">55200</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">中信</div>
+                    <div class="table-col">5.30</div>
+                    <div class="table-col">5.90</div>
+                    <div class="table-col">6.30</div>
+                    <div class="table-col">95000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">光大</div>
+                    <div class="table-col">6.40</div>
+                    <div class="table-col">6.80</div>
+                    <div class="table-col">7.20</div>
+                    <div class="table-col">57800</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">交通</div>
+                    <div class="table-col">8.00</div>
+                    <div class="table-col">8.60</div>
+                    <div class="table-col">9.00</div>
+                    <div class="table-col">63300</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">北京</div>
+                    <div class="table-col">13.30</div>
+                    <div class="table-col">13.80</div>
+                    <div class="table-col">14.20</div>
+                    <div class="table-col">6000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">交通-星巴克</div>
+                    <div class="table-col">8.00</div>
+                    <div class="table-col">8.60</div>
+                    <div class="table-col">9.00</div>
+                    <div class="table-col">21000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">移动</div>
+                    <div class="table-col">72.00</div>
+                    <div class="table-col">75.00</div>
+                    <div class="table-col">80.00</div>
+                    <div class="table-col">2850</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">招行-全清</div>
+                    <div class="table-col">120.00</div>
+                    <div class="table-col">125.00</div>
+                    <div class="table-col">130.00</div>
+                    <div class="table-col">999</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">汇丰</div>
+                    <div class="table-col">13.10</div>
+                    <div class="table-col">14.40</div>
+                    <div class="table-col">16.40</div>
+                    <div class="table-col">27500</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">华夏</div>
+                    <div class="table-col">4.80</div>
+                    <div class="table-col">5.40</div>
+                    <div class="table-col">5.80</div>
+                    <div class="table-col">60000</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col" style="width:40px;flex:none;">联通</div>
+                    <div class="table-col">62.00</div>
+                    <div class="table-col">68.00</div>
+                    <div class="table-col">72.00</div>
+                    <div class="table-col">1020</div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div class="tabbar">
+        <a class="item" href="index.html">
+            <span><img src="static/images/img_caidan_1.png" class="tabbar-icon"></span>
+            <p>积分兑换</p>
+        </a>
+        <a class="item" href="javascript:;">
+            <span><img src="static/images/img_caidan_31.png" class="tabbar-icon"></span>
+            <p style="color: #4b77be">合伙人</p>
+        </a>
+        <!----><a class="item" href="share.html">
+        <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
+        <p>推广</p>
+    </a>
+        <a class="item" href="invite.html">
+            <span><img src="static/images/img_caidan_5.png" class="tabbar-icon"></span>
+            <p>APP下载</p>
+        </a>
+        <a class="item" href="home.html">
+            <span><img src="static/images/img_caidan_4.png" class="tabbar-icon"></span>
+            <p>个人中心</p>
+        </a>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/jquery.event.move.js"></script>
+<script src="js/jquery.event.swipe.js"></script>
+<script src="js/idangerous.swiper2.7.6.min.js"></script>
+<script src="js/public.js"></script>
+<script type="text/javascript">
+    $(function () {
+        judgingLogon();
+        getData("/ajax/user.ashx", "post", {
+            action: "fetch_user_info",
+            userid: userMessage.ID
+        }, function (res) {
+            if (res.success) {
+                $(".avatar").attr("src", res.user.Avatar);
+                if(res.user.Nick==null){
+                    $(".nickname").html(res.user.UserName)
+                }else {
+                    $(".nickname").html(res.user.Nick);
+                }
+                $(".levelName").html(res.user.LevelName);
+            } else {
+                alert(res.msg);
+            }
+        });
+        var num = 0;
+        getData("/ajax/agent.ashx","post",{action:"fetch_agent_info",userid:userMessage.ID},function (res) {
+            if(res.success){
+                var data = res.info;
+                num = data.currentlevel-1;
+                var oFram = document.createDocumentFragment();
+                for(var i=0;i<data.level.length;i++){
+                    var mx = document.createElement("div");
+                    mx.className = "mx hide1";
+                    mx.innerHTML = data.level[i].Intro;
+                    oFram.appendChild(mx);
+                }
+                $(".page").append(oFram);
+
+                // var oFragment = document.createDocumentFragment();
+                var table = document.createElement("div");
+                table.className = "table";
+                var label = document.createElement("div");
+                label.className = "table-label";
+                label.innerHTML = "积分兑换价格（单位：元/万）";
+                table.appendChild(label);
+                var hd = document.createElement("div");
+                hd.className = "table-hd flex";
+                hd.innerHTML = "<div class=\"hd-item\">银行</div>\n" +
+                    "                    <div class=\"hd-item\">会员</div>\n" +
+                    "                    <div class=\"hd-item\">黄金会员</div>\n" +
+                    "                    <div class=\"hd-item\">合伙人</div>\n" +
+                    "                    <div class=\"hd-item\">起兑积分</div>\n";
+                table.appendChild(hd);
+                for(var i=0;i<data.table.length;i++){
+                    var row = document.createElement("div");
+                    row.className = "table-row";
+                    var col1 = document.createElement("div");
+                    col1.className = "table-col";
+                    col1.innerHTML = data.table[i].Name;
+                    row.appendChild(col1);
+                    var col2 = document.createElement("div");
+                    col2.className = "table-col";
+                    col2.innerHTML = data.table[i].Level1;
+                    row.appendChild(col2);
+                    var col3 = document.createElement("div");
+                    col3.className = "table-col";
+                    col3.innerHTML = data.table[i].Level2;
+                    row.appendChild(col3);
+                    var col4 = document.createElement("div");
+                    col4.className = "table-col";
+                    col4.innerHTML = data.table[i].Level3;
+                    row.appendChild(col4);
+                    var col5 = document.createElement("div");
+                    col5.className = "table-col";
+                    col5.innerHTML = data.table[i].Unit;
+                    row.appendChild(col5);
+                    table.appendChild(row)
+                }
+                $(".page").append(table);
+                localStorage.setItem("upgrade1",JSON.stringify(data.level[1].Intro))
+                localStorage.setItem("upgrade2",JSON.stringify(data.level[2].Intro))
+                $(".tip")[num].style.display = "block";
+                if (num == 2) {
+                    $(".agent .upgrade .item").css("display", "none");
+                } else if (num == 1) {
+                    $(".agent .upgrade .item:first").css("display", "none");
+                } else if(num == 0){
+                    $(".agent .upgrade .item2").css("display", "none");
+                }
+                $(".mx").hide().eq(num).show();
+                var mySwiper = new Swiper('.swiper-container', {
+                    effect: 'coverflow',
+                    slidesPerView: 1.1,
+                    centeredSlides: true,
+                    initialSlide: num,//初始化索引
+                    // spaceBetween : 20,
+                    coverflow: {
+                        rotate: 0,
+                        stretch: -50,
+                        depth: 200,
+                        modifier: 1,
+                        slideShadows: false
+                    },
+                    onInit: function (swiper) {
+                        // $(".mx").hide().eq(swiper.activeIndex).show();
+                        /*var prompt = document.getElementById('prompt').getElementsByTagName('p');
+                        var swip = document.getElementsByClassName('swiperInp');
+                        for(var i=0;i<prompt.length;i++){
+                            if(i==swiper.activeIndex){
+                                prompt[i].style.display='block';
+                                mcid = swip[i].value;
+                                isDeposited = swip[i].getAttribute('isDeposited');
+                                console.log(mcid,isDeposited)
+                            }else {
+                                prompt[i].style.display='none'
+                            }
+                        }*/
+                    },
+                    onSlideChangeStart: function (swiper) {
+                        console.log(swiper.activeIndex);
+                        $(".mx").hide().eq(swiper.activeIndex).show();
+
+                    }
+                })
+            }else {
+                alert(res.msg)
+            }
+        });
+
+    })
+
+</script>
+</body>
+</html>

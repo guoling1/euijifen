@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet"/>
+    <style>
+        .icon {
+            padding-top: 90px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .icon img {
+            margin: 0 auto;
+            width: 80px;
+            height: 80px;
+        }
+
+        form input {
+            border: none;
+            height: 50px;
+            width: 70%;
+        }
+
+        form div {
+            margin: 0 15px;
+            border-bottom: 1px solid #e5e5e5;
+            height: 50px;
+        }
+
+        form img {
+            vertical-align: middle;
+            margin: 0 5px;
+            width: 26px;
+        }
+
+        form label {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        input[type="button"] {
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 5px;
+            width: 90%;
+            background: #4b77be;
+            color: #f0f0f0;
+            font-size: 16px;
+        }
+
+        .messageCode input {
+            width: 65%;
+        }
+
+        .messageCode button {
+            text-align: center;
+            border: none;
+            padding: 0 10px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 18px;
+            background: #fff;
+            font-size: 12px;
+            color: #4b77be;
+            position: absolute;
+            margin-top: 10px;
+        }
+
+        .graphicCode .picture {
+            width: 60px;
+            height: 25px;
+            position: absolute;
+            margin-top: 12px;
+            right: 21px;
+            border: 1px solid #333;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #B5BEBE;
+        }
+
+        .register {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .register a {
+            color: #B4B4B4;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <a class="back" href="JavaScript:history.go(-1)"><img src="static/images/back.gif"></a>
+    <div class="title">重置密码</div>
+    <a class="right"></a>
+</div>
+<div class="page">
+    <form>
+        <div class="phone">
+            <label for="phone">手机号</label>
+            <input type="number" name="phone" id="phone" placeholder="请输入手机号">
+        </div>
+        <div class="messageCode">
+            <label for="messageCode">验证码</label>
+            <input type="text" name="messageCode" id="messageCode" placeholder="请输入短信验证码">
+            <button>获取验证码</button>
+        </div>
+        <div class="passwordold">
+            <label for="password">原密码</label>
+            <input type="password" name="passwordold" id="passwordold" placeholder="请设置新密码">
+        </div>
+        <div class="password">
+            <label for="password">设置密码</label>
+            <input type="password" name="password" id="password" placeholder="请设置新密码">
+        </div>
+        <div class="password">
+            <label for="password1">确认密码</label>
+            <input type="password" name="password1" id="password1" placeholder="请确认新密码">
+        </div>
+
+        <input type="button" value="确 定" id="sub">
+    </form>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    //判断是忘记密码还是修改密码
+    if (getParam().from == "home") { //修改密码
+        $(".title").html("修改密码");
+        $(".phone").hide();
+        $(".messageCode").hide();
+        $("#sub").on("click", function (e) {
+            e.preventDefault();
+            var password = $("input[name='password']")[0].value;
+            var password1 = $("input[name='password1']")[0].value;
+            var passwordold = $("input[name='passwordold']")[0].value;
+            if (password == "") {
+                alert("请输入密码")
+            } else if (password1 == "") {
+                alert("请确认密码")
+            } else if (password != password1) {
+                alert("密码不一致")
+            } else {
+                var data = {
+                    action: "updatepassword",
+                    userid: userMessage.ID,
+                    passwordold: passwordold,
+                    passwordnew: password1
+                };
+                getData("/ajax/user.ashx", "post", data, function (res) {
+                    if (res.success) {
+                        location.href = "login.html"
+                    } else {
+                        alert(res.msg);
+                    }
+
+                })
+
+            }
+        });
+    } else {
+        $(".passwordold").hide()
+        // 获取验证码
+        $("button").on("click", function (e) {
+            e.preventDefault();
+            if(phoneReg.test($("#phone").val())){
+                sendCode($("#phone").val(),"_smsreset");
+            }else {
+                alert("请输入正确的手机号")
+            }
+        });
+        $("#sub").on("click", function (e) {
+            e.preventDefault();
+            var phone = $("input[name='phone']")[0].value;
+            var messageCode = $("input[name='messageCode']")[0].value;
+            var password = $("input[name='password']")[0].value;
+            var password1 = $("input[name='password1']")[0].value;
+            if (!phoneReg.test(phone)) {
+                alert("请输入正确的手机号")
+            } else if (messageCode == "") {
+                alert("请输入验证码")
+            } else if (password == "") {
+                alert("请输入密码")
+            } else if (password1 == "") {
+                alert("请输入确认密码")
+            } else if (password != password1) {
+                alert("密码不一致")
+            } else {
+                var data = {
+                    action: "resetpassword",
+                    accountid: phone,
+                    smscode: messageCode,
+                    passwordnew: password
+                };
+                getData("/ajax/user.ashx", "post", data, function (res) {
+                    if (res.success) {
+                        location.href = "login.html"
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            }
+        })
+    }
+</script>
+</html>

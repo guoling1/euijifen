@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>融e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+    <style>
+        .baodan .product-item {
+            background-color: #999;
+            border: 3px solid #999;
+        }
+
+        .baodan .product-item.current {
+            background-color: #f27935;
+            border: 3px solid #f27935;
+        }
+
+        .tinput {
+            border: 0;
+            height: 60px;
+            line-height: 20px;
+            display: block;
+            width: 100%;
+        }
+
+        .t-input {
+            border: 1px solid #4b77be;
+            /*width: 90%;*/
+            padding: 3px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        ::-webkit-input-placeholder {
+            font-size: 12px;
+        }
+
+        .baodan .item-bd {
+            border-bottom: 0;
+        }
+
+        textarea {
+            oulilne: none;
+        }
+
+        textarea:focus {
+            oulilne: none;
+        }
+
+        .item-box {
+            padding-bottom: 8px;
+        }
+
+        .baodan .button {
+            position: relative;
+            padding: 0;
+        }
+
+        .max-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-color: #000;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 110000;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+        }
+
+        .baodan .product li.active {
+            background: #4b77be;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="javascript:history.go(-1)"><img src="static/images/back.gif"></a>
+        <div class="title">填写报单</div>
+        <a class="right"></a>
+    </div>
+    <div class="page baodan">
+        <div class="note">请提交正确的信息，恶意提交一经核实将封号。</div>
+        <div class="item-hd">产品类别</div>
+        <ul class="product" id="bank_product">
+            <!--<li>1万</li>
+            <li>2万</li>
+            <li>10万</li>
+            <li>10万</li>
+            <li>10万</li>
+            <li>10万</li>
+            <li>10万</li>
+            <li>10万</li>-->
+        </ul>
+        <div class="item-hd isupload">截图示范</div>
+        <div class="thumb-wrap isupload">
+            <div class="thumb-item"><img src="http://integral.yueyues.com/uploadfiles/20180313/20180313084946.png" class="gallery"></div>
+        </div>
+        <div class="item-hd isupload">上传截图</div>
+        <div class="upload-wrap isupload">
+            <div class="upload-btn"><img src="img/upload.png"></div>
+        </div>
+        <!--<input type="text" id="coupon" placeholder="输入订单号后8位">-->
+        <div class="item-box">
+            <div class="item-bd">
+                <div class="nav-name">兑换码</div>
+                <div class="t-input"><textarea id="coupon" class="tinput" placeholder="请复制粘贴完整的兑换短信"></textarea></div>
+            </div>
+            <div class="item-bd">
+                <div class="nav-name">备注</div>
+                <div class="t-input"><textarea id="note" class="tinput" placeholder="无特殊情况请勿填写"></textarea></div>
+            </div>
+        </div>
+        <div class="button do_baodan" data-id="3" data-validity="0">提交</div>
+    </div>
+</div>
+<div class="max-container"></div>
+<iframe name="hiddeniframe" id="hiddeniframe" width="0" height="0" style="display:none;"></iframe>
+<form id="myform2" action="/ajax/upload.ashx" target="hiddeniframe" enctype="multipart/form-data" method="post">
+    <input type="file" id="file" name="imgFile" accept="image/*" style="display:none;">
+</form>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<!--<script src="js/common.js"></script>-->
+<script src="js/public.js"></script>
+<script>
+    judgingLogon();
+    var bankid = getParam().id;
+    var userid = getParam().user;
+    var productid = "";
+    var screenshot;
+    var isupload;
+    getData("/ajax/bank.ashx", "post", {action: "fetch_bank_product", bankid: bankid}, function (res) {
+        if (res.success) {
+            screenshot = ip+res.screenshot;
+            $(".gallery").attr("src",ip+res.screenshot);
+            isupload = res.isupload;
+            var product = res.data.info;
+            if (isupload) {
+                $(".isupload").css("display", "block")
+            } else {
+                $(".isupload").css("display", "none")
+            };
+            var oFram = document.createDocumentFragment();
+            for (var i = 0; i < product.length; i++) {
+                var oli = document.createElement('li');
+                oli.id = product[i].id;
+                oli.innerHTML = product[i].name;
+                oFram.appendChild(oli);
+            }
+            $("#bank_product").append(oFram);
+            $("#bank_product li").each(function (i, ele) {
+                $(this).on("click", function () {
+                    $(ele).addClass("active").siblings().removeClass("active");
+                    productid = $(ele).attr("id");
+                })
+            });
+        } else {
+            alert(res.msg)
+        }
+    });
+    $("#bank_product li").each(function (i, ele) {
+        $(this).on("click", function () {
+            $(ele).addClass("active").siblings().removeClass("active")
+        })
+    });
+    /*$(function () {
+        var bank_id = request('bank_id') || 0;
+        $.ajax({
+            type: 'POST',
+            url: "/tools/bank.ashx",
+            data: { action: 'fetch_bank_product', bank_id: bank_id },
+            success: function (result) {
+                if (result.success) {
+                    $.each(result.data.info, function (index, item) {
+                        var html = "<div class=\"product-item\" data-id=\"" + item.id + "\">" + item.name + "</div>";
+                        $("#bank_product").append(html);
+                    });
+                }
+            },
+            async: false,
+            dataType: "json"
+        });
+
+
+        $(".gallery").click(function () {
+            var url = $(this).prop("src");
+            $(".max-container").css("background-image", "url(" + url + ")").show();
+        });
+
+        $(".max-container").click(function () {
+            $(this).hide();
+        })
+
+        var submit = 0;
+        $(".button").click(function () {
+            var thumb_num = 1;
+            var url = "/index/index/do_baodan.html";
+            var id = $(this).data("id");
+            var coupon = $("#coupon").val();
+            var note = $("#note").val();
+            if (coupon == '') {
+                alert("兑换码不能为空");
+                return false;
+            }
+
+            var product_id = 0;
+            if ($(".product-item").length > 0) {
+                if ($(".current").length == 0) {
+                    alert("请选择产品");
+                    return false;
+                }
+                product_id = $(".current").data("id");
+            }
+
+            var obj = { id: id, coupon: coupon, note: note, product_id: product_id };
+
+            var validity = $(this).data("validity");
+            if (validity > 0) {
+                obj['validity'] = $("#validity").val();
+            }
+
+            if (thumb_num > 0) {
+                var thumbs = "";
+                if ($(".upload-thumb img").length != thumb_num) {
+                    alert("截图数量不对");
+                    return false;
+                }
+                $(".upload-thumb img").each(function () {
+                    var v = $(this).attr("src");
+                    if (thumbs == '') {
+                        thumbs = v;
+                    } else {
+                        thumbs = thumbs + "," + v;
+                    }
+                });
+                obj['thumbs'] = thumbs;
+            }
+            if (submit == 1) {
+                return false;
+            }
+            submit = 1;
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: obj,
+                success: function (result) {
+                    if (result.success) {
+                        alert("提交成功");
+                        location.href = '/order.html';
+                    } else {
+                        alert(result.msg);
+                        submit = 0;
+                    }
+                },
+                dataType: "json"
+            });
+        })
+
+        $(".product-item").click(function () {
+            $(this).addClass("current").siblings().removeClass("current");
+        })
+    })*/
+    // 提交
+    $(".button").on("click", function (e) {
+        var data = {
+            action: "add_order",
+            bankid: bankid,
+            userid: userid,
+            productid: productid,
+            code: $("#coupon").val(),
+            note: $("#note").val(),
+            screenshot:screenshot,
+        };
+        if (data.productid == "") {
+            alert("请选择产品类型")
+        } else if (data.code == "") {
+            alert("请填写兑换码")
+        } else if (isupload == true && $("#imgload")[0] == undefined) {
+            alert("请上传图片")
+        } else {
+            if (isupload) {
+                data.thumbs = $("#imgload")[0].src
+            }else {
+                data.thumbs = ""
+            }
+
+            getData("/ajax/order.ashx", "post", data, function (res) {
+                if (res.success) {
+                    location.href = "success.html";
+                } else {
+                    alert(res.msg);
+                }
+            });
+        }
+    });
+
+    function malert(msg) {
+        alert(msg);
+    }
+
+    function afterUpload(src) {
+        $(".upload-wrap").prepend('<div class="upload-thumb" style="width: 100%;height: inherit"><img src="' + src + '" id="imgload"></div>');
+        $(".upload-btn").hide();
+        document.getElementById('coupon').focus();
+    }
+
+    $(function () {
+        $("#file").change(function () {
+            $("#myform2").submit();
+        });
+        $(".upload-btn").click(function () {
+            $("#file").trigger("click");
+        });
+    });
+    if (/Android/gi.test(navigator.userAgent)) {
+        window.addEventListener('resize', function () {
+            if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') {
+                window.setTimeout(function () {
+                    document.activeElement.scrollIntoViewIfNeeded();
+                }, 0);
+            }
+        })
+    }
+</script>
+</body>
+</html>
+
