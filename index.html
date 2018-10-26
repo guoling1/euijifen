@@ -88,7 +88,6 @@
         .bank_classify {
             border-bottom: 4px solid #e5e5e5;
             width: 49.8%;
-            height: 56px;
         }
 
         .bank_select img {
@@ -117,7 +116,8 @@
         .bank_select .min {
             font-weight: normal;
             font-size: 12px;
-            color: #a2a0a0;
+            color: #ff0000;
+            padding: 5px 0;
         }
 
         .main img.biaoshi {
@@ -174,7 +174,8 @@
             border-radius: 5px;
             color: #fff;
         }
-        .bank_select img.icon{
+
+        .bank_select img.icon {
             width: 40px;
             height: 40px;
             padding: 0 8px 0 0;
@@ -187,20 +188,15 @@
         <div class="page">
             <div class="banner">
                 <ul id="banner" style="height: 140px">
-                    <!--<li><img src="static/images/pic1.png"/></li>-->
-                    <!--<li><img src="uploadfiles/20180506/a1.png"/></li>-->
-
+                    <!--<li><a href="https://www.baidu.com"><img src="static/images/bg.png"/></a></li>
+                    <li><img src="static/images/bg.png"/></li>-->
                 </ul>
             </div>
             <div class="bank" style="padding: 0;">
                 <div style="margin-top:3px;">
-                    <div style="padding: 0 15px;"><img src="static/images/img_jifen_yinhang.png" class="sel"></div>
-                    <!--<div class="sel-bank flex flex1" style="margin-left:10px;">
-                        <div class="flex1" style="margin-top:2px;">
-                            <select class="select" id="select_bank">
-                            </select>
-                        </div>
-                    </div>-->
+                    <div style="padding: 0 15px;">
+                        <img src="static/images/img_jifen_yinhang.png" class="sel">
+                    </div>
                     <!--银行列表-->
                     <div class="bank_select" id="bankList">
                         <!--<div class="bank_classify active">
@@ -235,9 +231,6 @@
                 <div class="tip"><div><img src="static/images/img_jifen_dunpai.png" class="img-tip"><span id="in_tips"></span></div></div>
                 <div class="tip"><div><img src="static/images/img_jifen_dunpai.png" class="img-tip"><span id="in_tips2"></span></div></div>-->
             </div>
-            <!--<div class="button" id="xiangqing">马上去兑换</div>
-            <div><img src="img/pic.png" style="width:100%;"></div>
-            <img src="img/app.png" class="app" onclick="location.href='invite.html'">-->
         </div>
     </div>
     <div class="tabbar">
@@ -245,14 +238,14 @@
             <span><img src="static/images/img_caidan_11.png" class="tabbar-icon"></span>
             <p style="color: #4b77be">积分兑换</p>
         </a>
-        <a class="item" href="agent.html">
+        <!--<a class="item" href="agent.html">
             <span><img src="static/images/img_caidan_3.png" class="tabbar-icon"></span>
             <p>合伙人</p>
-        </a>
-        <!----><a class="item" href="share.html">
-        <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
-        <p>推广</p>
-    </a>
+        </a>-->
+        <!--<a class="item" href="share.html">
+            <span><img src="static/images/img_caidan_2.png" class="tabbar-icon"></span>
+            <p>推广</p>
+        </a>-->
         <a class="item" href="invite.html">
             <span><img src="static/images/img_caidan_5.png" class="tabbar-icon"></span>
             <p>APP下载</p>
@@ -271,7 +264,7 @@
 <script src="js/public.js"></script>
 <script>
     $(function () {
-        judgingLogon();
+        // judgingLogon();
         var aImg = {
             "秒结": 'static/images/miaojie.png',
             "T+0": "static/images/T0.png",
@@ -280,7 +273,7 @@
             "T+3": "static/images/T3.png",
             "暂停结算": "static/images/zanting.png"
         };
-        var userId = userMessage.ID;
+        // var userId = userMessage.ID;
         //获取轮播图
         getData("/ajax/banner.ashx", "post", {action: "fetch_all_banner"}, function (res) {
             if (res.success) {
@@ -288,9 +281,12 @@
                 var oFragment = document.createDocumentFragment();
                 for (var i = 0; i < bannerList.length; i++) {
                     var oLi = document.createElement('li');
+                    var oA = document.createElement('a');
+                    oA.href = bannerList[i].Url;
                     var oImg = document.createElement("img");
                     oImg.src = ip + bannerList[i].Image;
-                    oLi.appendChild(oImg);
+                    oA.appendChild(oImg);
+                    oLi.appendChild(oA);
                     oFragment.appendChild(oLi);
                 }
                 $("#banner").append(oFragment)
@@ -323,10 +319,10 @@
                     var oSpan = document.createElement('span');
                     oSpan.innerHTML = bankList[i].Name;
                     oContainer.appendChild(oSpan);
-                    var oMin = document.createElement('span');
+                    var oMin = document.createElement('p');
                     oMin.className = 'min';
-                    // oMin.innerHTML = bankList[i].detail;
-                    oContainer.appendChild(oMin);
+                    oMin.innerHTML = '最高兑换价格：' + bankList[i].Price + '元';
+                    oMain.appendChild(oMin);
                     if (bankList[i].Settlement !== '') {
                         var oBiao = document.createElement('img');
                         oBiao.src = aImg[bankList[i].Settlement];
@@ -341,12 +337,12 @@
                 $("#queryFun").html(bankList[0].PhoneMsg);
                 $(".bank_classify").each(function (i, ele) {
                     $(this).on('click', function () {
-                        if(bankList[i].Settlement=="暂停结算"){
+                        if (bankList[i].Settlement == "暂停结算") {
                             var state = 1;
-                        }else {
+                        } else {
                             var state = 0;
                         }
-                        location.href = "detail.html?id=" + bankList[i].ID + "&user=" + userId+"&state="+state;
+                        location.href = "detail.html?id=" + bankList[i].ID + "&state=" + state;
                     })
                 })
             } else {

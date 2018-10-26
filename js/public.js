@@ -1,5 +1,5 @@
 // 请求
-var ip = "http://www.eduijifen.com";
+var ip = "http://test.eduijifen.com";
 function getData(link, type, data, cb) {
     $.ajax({
         type: type,

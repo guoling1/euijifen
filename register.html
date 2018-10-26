@@ -116,7 +116,7 @@
     </div>
     <div class="password">
         <img src="static/images/reg4.png" alt="">
-        <input style="background: #fff" type="number" name="referee" id="referee" placeholder="请输入推荐人手机号">
+        <input style="background: #fff" type="text" name="referee" id="referee" placeholder="请输入推荐人手机号">
     </div>
 
     <input type="submit" value="提 交" id="sub">
@@ -142,7 +142,9 @@
         }
     });
     if(getParam().introduceCode!=undefined){
-        $("input[name='referee']")[0].value=getParam().introduceCode;
+        var str = getParam().introduceCode;
+        var phone = str.substr(0,3)+"****"+str.substr(7)
+        $("input[name='referee']")[0].value=phone;
         $("#referee").attr("disabled","disabled");
     }
     // 获取验证码
