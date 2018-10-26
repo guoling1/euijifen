@@ -210,6 +210,16 @@
 <script>
     // clibosrd插件实现点击复制
     new ClipboardJS('.copy');
+    var copyBtn = new ClipboardJS('.copy');
+    copyBtn.on("success",function(e){
+        // 复制成功
+        alert('复制成功:'+e.text);
+        // e.clearSelection();
+    });
+    copyBtn.on("error",function(e){
+        //复制失败；
+        alert( '复制失败' )
+    });
     // judgingLogon();
     var urlParam = getParam();
     //获取页面数据
