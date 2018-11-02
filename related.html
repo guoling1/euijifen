@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>融e兑</title>
+    <title>积分e兑</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
     <meta name="renderer" content="webkit"/>
     <link href="static/css/base.css" rel="stylesheet">
@@ -64,8 +64,8 @@
         <div class="yq-hd">
             <div class="sep fx1">手机号</div>
             <div class="sep fx3">等级</div>
-            <!--<div class="sep fx2">成交</div>-->
-            <!--<div class="sep fx1">推荐奖</div>-->
+            <div class="sep fx1">累计收益</div>
+            <div class="sep fx2">注册时间</div>
         </div>
         <div class="rd-wrap">
             <div class="rd-list">
@@ -118,20 +118,20 @@
                             oRow.className = "row";
                             var oFx1 = document.createElement("div");
                             oFx1.className = "fx1";
-                            oFx1.innerHTML = tableData[i].UserName;
+                            oFx1.innerHTML = tableData[i].UserName.substr(0,3)+"****"+tableData[i].UserName.substr(7);
                             oRow.appendChild(oFx1);
                             var oFx3 = document.createElement("div");
                             oFx3.className = "fx3";
-                            oFx3.innerHTML = tableData[i].Name;
+                            oFx3.innerHTML = tableData[i].LevelName;
                             oRow.appendChild(oFx3);
-                            /*var oFx2 = document.createElement("div");
-                            oFx2.className = "fx2";
-                            oFx2.innerHTML = tableData[i].Money;
+                            var oFx2 = document.createElement("div");
+                            oFx2.className = "fx1";
+                            oFx2.innerHTML = tableData[i].Income+'元';
                             oRow.appendChild(oFx2);
                             var oFx4 = document.createElement("div");
-                            oFx4.className = "fx1";
-                            oFx4.innerHTML = tableData[i].Income;
-                            oRow.appendChild(oFx4);*/
+                            oFx4.className = "fx2";
+                            oFx4.innerHTML = tableData[i].CreateDate;
+                            oRow.appendChild(oFx4);
                             oFram.appendChild(oRow)
                         }
                         $(".rd-list").append(oFram);

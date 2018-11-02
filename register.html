@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>融e兑</title>
+    <title>积分e兑</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
     <meta name="renderer" content="webkit"/>
     <link href="static/css/base.css" rel="stylesheet"/>
@@ -173,7 +173,7 @@
             alert("密码不一致")
         }else if(messageCode==""){
             alert("请输入验证码")
-        } else if (referee == "" || phone.length != 11) {
+        } else if (referee != "" && referee.length != 11) {
             alert("请输入正确的推荐人手机号")
         } else {
             var data = {
@@ -185,6 +185,7 @@
             };
             getData("/ajax/user.ashx", "post", data, function (res) {
                 if (res.success) {
+                    alert('注册成功')
                     location.href = "login.html"
                 } else {
                     alert(res.msg);

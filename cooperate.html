@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>积分e兑</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="renderer" content="webkit"/>
+    <link href="static/css/base.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a class="back" href="home.html"><img src="static/images/back.gif"></a><div class="title">详情</div><a class="right"></a>
+    </div>
+    <div class="page page-mx vflex" style="background:#fff">
+
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+getData("/ajax/config.ashx", "post", {action: "fetch_config_info"}, function (res) {
+    if (res.success) {
+        $(".page").html(res.info.Cooperation);
+    } else {
+        alert(res.msg);
+    }
+});
+    $(function () {
+        $(".back").on("click",function () {
+          api.closeWin();
+        })
+    })
+    function reload(){
+        window.location.reload()
+    }
+</script>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>融e兑</title>
+    <title>积分e兑</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
     <meta name="renderer" content="webkit"/>
     <link href="static/css/base.css" rel="stylesheet">
@@ -169,6 +169,27 @@
             width: 140px;
             height: 140px;
         }
+        .code {
+            margin: 0 auto;
+            display: block;
+            width: 140px;
+            height: 140px;
+        }
+
+        .listImg {
+            height: 24px;
+            margin: 9px 5px 0 0;
+        }
+
+        .cooperate {
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .cooperate img {
+            width: 100%;
+            height: auto;
+        }
 
     </style>
 </head>
@@ -213,34 +234,41 @@
                     <div class="name">失败单数</div>
                 </div>
             </div>
-
+            <div class="cooperate" onclick="location.href='cooperate.html'">
+                <img src="" alt="">
+            </div>
             <div class="nav-box">
                 <div class="nav-item flex" onclick="location.href='related.html'">
-                    <img src="static/images/friendList.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <img src="static/images/friendList.png" alt="" class="listImg">
                     <div class="nav-name">好友列表</div>
                     <div class="nav-ico"></div>
                 </div>
             </div>
             <div class="nav-box">
                 <div class="nav-item flex">
-                    <img src="static/images/customer.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <img src="static/images/customer.png" alt="" class="listImg">
                     <div class="nav-name kfbtn" data-ewm="uploadfiles/20180416/2018041610545861314.png"
                          data-kefu="15253137135">微信客服
                     </div>
                     <div class="nav-ico"></div>
                 </div>
                 <div class="nav-item flex">
-                    <img src="static/images/about.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <img src="static/images/img_caidan_3.png" alt="" class="listImg">
+                    <div class="nav-name" onclick="location.href='cooperate2.html'">商务合作</div>
+                    <div class="nav-ico"></div>
+                </div>
+                <div class="nav-item flex">
+                    <img src="static/images/about.png" alt="" class="listImg">
                     <div class="nav-name" onclick="location.href='about.html'">关于我们</div>
                     <div class="nav-ico"></div>
                 </div>
                 <div class="nav-item flex">
-                    <img src="static/images/log2.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <img src="static/images/log2.png" alt="" class="listImg">
                     <div class="nav-name" onclick="location.href='retrieve.html?from=home'">修改密码</div>
                     <div class="nav-ico"></div>
                 </div>
                 <div class="nav-item flex">
-                    <img src="static/images/log2.png" alt="" style=" height: 20px;margin: 11px 5px 0 0;">
+                    <img src="static/images/log2.png" alt="" class="listImg">
                     <div class="nav-name" id="quit">退出登录</div>
                     <div class="nav-ico"></div>
                 </div>
@@ -453,9 +481,10 @@
         }
     });
     $(function () {
-        $(".kfbtn").click(function () {
+
             getData("/ajax/config.ashx", "post", {action: "fetch_config_info"}, function (res) {
                 if (res.success) {
+                    $(".cooperate img").attr("src", ip + res.info.CooperationImage);
                     $(".ewm1 .code").attr("src", ip + res.info.WeixinCustomerImage);
                     $(".codeNum").html("客服微信号：" + res.info.WeixinCustomerCode);
                     $(".copy").attr("data-clipboard-text", res.info.WeixinCustomerCode)
@@ -463,10 +492,7 @@
                     alert(res.msg);
                 }
             });
-            /*var ewm = $(this).data("ewm");
-            var kefu = $(this).data("kefu");
-            $(".ewm1").html("<img src='" + ewm + "'>");
-            $(".kefu1").html("客服微信号：" + kefu);*/
+        $(".kfbtn").click(function () {
             $(".js_dialog").show();
         });
         $("#quit").click(function () {
